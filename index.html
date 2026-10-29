@@ -19,7 +19,7 @@
 
   <style>
     /* ==========================================================================
-       THEME VARIABLES & TYPOGRAPHY SYSTEM
+       THEME VARIABLES & LUXURY SYSTEM
        ========================================================================== */
     :root {
       --bg-dark: #0B0612;
@@ -28,7 +28,7 @@
       --bg-modal: #150A21;
       
       --pink-primary: #FF007F;
-      --pink-glow: rgba(255, 0, 127, 0.4);
+      --pink-glow: rgba(255, 0, 127, 0.45);
       --rose-light: #FF66C4;
       --purple-soft: #9D00FF;
       
@@ -36,13 +36,26 @@
       --text-muted: #CDB7D9;
       --text-heading: #FFFFFF;
       
-      --card-border: rgba(255, 0, 127, 0.18);
-      --nav-bg: rgba(11, 6, 18, 0.92);
-      --nav-border: rgba(255, 0, 127, 0.18);
+      --card-border: rgba(255, 0, 127, 0.2);
       --badge-bg: rgba(255, 0, 127, 0.1);
       --tag-bg: rgba(255, 255, 255, 0.05);
       --slink-bg: rgba(11, 6, 18, 0.85);
       --orb-opacity: 0.35;
+      
+      /* Modern Floating Island App Bar Variables */
+      --nav-glass-bg: rgba(15, 8, 25, 0.78);
+      --nav-glass-border: rgba(255, 0, 127, 0.25);
+      --nav-glass-shadow: 0 16px 40px rgba(0, 0, 0, 0.5), 0 0 25px rgba(255, 0, 127, 0.15);
+      
+      /* Lamp Switch (كوبس اللمبة) Variables - Dark State (OFF) */
+      --switch-plate-bg: rgba(22, 12, 36, 0.85);
+      --switch-plate-border: rgba(255, 0, 127, 0.3);
+      --rocker-track-bg: #140920;
+      --rocker-knob-bg: linear-gradient(135deg, #FF007F, #9D00FF);
+      --rocker-knob-shadow: 0 0 10px rgba(255, 0, 127, 0.6);
+      --switch-text-color: #FF66C4;
+      --watermark-lamp-opacity: 0.14;
+      --watermark-glow-cone: transparent;
       
       --font-en: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
       --font-ar: 'Cairo', 'Plus Jakarta Sans', sans-serif;
@@ -56,15 +69,15 @@
       --transition-smooth: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
     }
 
-    /* Light Mode Luxury Palette */
+    /* Light Mode Luxury Palette - Light State (ON) */
     [data-theme="light"] {
-      --bg-dark: #FAF6FB;
+      --bg-dark: #FAF5FB;
       --bg-card: rgba(255, 255, 255, 0.88);
       --bg-card-hover: #FFFFFF;
       --bg-modal: #FFFFFF;
       
       --pink-primary: #E6006F;
-      --pink-glow: rgba(230, 0, 111, 0.2);
+      --pink-glow: rgba(230, 0, 111, 0.25);
       --rose-light: #B8005A;
       --purple-soft: #7A00CC;
       
@@ -73,12 +86,25 @@
       --text-heading: #170821;
       
       --card-border: rgba(230, 0, 111, 0.16);
-      --nav-bg: rgba(250, 246, 251, 0.95);
-      --nav-border: rgba(230, 0, 111, 0.15);
       --badge-bg: rgba(230, 0, 111, 0.08);
       --tag-bg: rgba(230, 0, 111, 0.06);
       --slink-bg: #FFFFFF;
-      --orb-opacity: 0.12;
+      --orb-opacity: 0.15;
+      
+      /* Floating Island App Bar - Light Mode */
+      --nav-glass-bg: rgba(255, 255, 255, 0.9);
+      --nav-glass-border: rgba(230, 0, 111, 0.2);
+      --nav-glass-shadow: 0 16px 40px rgba(200, 150, 180, 0.18), 0 0 25px rgba(230, 0, 111, 0.1);
+      
+      /* Lamp Switch (كوبس اللمبة) - ON State */
+      --switch-plate-bg: #FFFDF8;
+      --switch-plate-border: #FFB800;
+      --rocker-track-bg: #FFF3C4;
+      --rocker-knob-bg: linear-gradient(135deg, #FFB800, #FF7A00);
+      --rocker-knob-shadow: 0 0 14px #FFB800, 0 0 22px rgba(255, 184, 0, 0.5);
+      --switch-text-color: #B86E00;
+      --watermark-lamp-opacity: 0.75;
+      --watermark-glow-cone: radial-gradient(circle at 85% 0%, rgba(255, 220, 120, 0.35) 0%, rgba(255, 200, 150, 0.15) 45%, transparent 75%);
     }
 
     [dir="rtl"] {
@@ -93,7 +119,7 @@
 
     html {
       scroll-behavior: smooth;
-      transition: background-color 0.3s ease, color 0.3s ease;
+      transition: background-color 0.4s ease, color 0.4s ease;
     }
 
     body {
@@ -102,7 +128,8 @@
       font-family: var(--font-current);
       overflow-x: hidden;
       line-height: 1.6;
-      transition: background-color 0.3s ease, color 0.3s ease;
+      transition: background-color 0.4s ease, color 0.4s ease;
+      position: relative;
     }
 
     /* Custom Scrollbar */
@@ -133,6 +160,50 @@
     .orb-1 { width: 450px; height: 450px; background: var(--pink-primary); top: -100px; left: -100px; }
     .orb-2 { width: 450px; height: 450px; background: var(--purple-soft); bottom: -100px; right: -100px; }
 
+    /* ==========================================================================
+       WATERMARK CEILING LAMP & LIGHT CONE (علامة مائية كوبس ولمبة)
+       ========================================================================== */
+    .watermark-lamp-scene {
+      position: fixed;
+      top: 0;
+      right: 5%;
+      width: 220px;
+      height: 380px;
+      pointer-events: none;
+      z-index: 1;
+      transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    [dir="rtl"] .watermark-lamp-scene {
+      right: auto;
+      left: 5%;
+    }
+
+    /* Soft Atmospheric Light Cone when Switch is ON */
+    .watermark-light-cone {
+      position: fixed;
+      top: 0;
+      right: 0;
+      width: 100vw;
+      height: 100vh;
+      background: var(--watermark-glow-cone);
+      pointer-events: none;
+      z-index: 0;
+      transition: background 0.6s ease;
+    }
+
+    .watermark-lamp-svg {
+      width: 100%;
+      height: 100%;
+      opacity: var(--watermark-lamp-opacity);
+      transition: opacity 0.5s ease, filter 0.5s ease;
+      filter: drop-shadow(0 0 15px rgba(255, 0, 127, 0.2));
+    }
+
+    [data-theme="light"] .watermark-lamp-svg {
+      filter: drop-shadow(0 0 30px rgba(255, 184, 0, 0.8)) drop-shadow(0 0 60px rgba(255, 150, 0, 0.4));
+    }
+
     .container {
       width: 90%;
       max-width: 1100px;
@@ -149,129 +220,357 @@
     }
 
     /* ==========================================================================
-       NAVBAR & INTERACTIVE CONTROLS
+       ULTRA-MODERN FLOATING CAPSULE APP BAR (NAVBAR)
        ========================================================================== */
-    .navbar {
+    .navbar-floating-wrapper {
       position: fixed;
-      top: 0;
+      top: 18px;
       left: 0;
       right: 0;
-      z-index: 100;
-      padding: 18px 0;
-      transition: all 0.3s ease;
+      z-index: 999;
+      display: flex;
+      justify-content: center;
+      padding: 0 16px;
+      pointer-events: none;
     }
 
-    .navbar.scrolled {
-      padding: 12px 0;
-      background: var(--nav-bg);
-      backdrop-filter: blur(20px);
-      border-bottom: 1px solid var(--nav-border);
-      box-shadow: 0 4px 20px rgba(0,0,0,0.06);
-    }
-
-    .nav-container {
+    .navbar-capsule {
+      pointer-events: auto;
+      width: 100%;
+      max-width: 980px;
+      background: var(--nav-glass-bg);
+      backdrop-filter: blur(28px) saturate(190%);
+      -webkit-backdrop-filter: blur(28px) saturate(190%);
+      border: 1px solid var(--nav-glass-border);
+      border-radius: 100px;
+      box-shadow: var(--nav-glass-shadow);
+      padding: 10px 22px;
       display: flex;
       align-items: center;
       justify-content: space-between;
       gap: 16px;
+      transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
     }
 
-    .logo {
-      font-size: 1.35rem;
-      font-weight: 800;
-      color: var(--text-heading);
+    .navbar-capsule:hover {
+      border-color: var(--pink-primary);
+      box-shadow: 0 18px 45px rgba(0, 0, 0, 0.4), 0 0 30px var(--pink-glow);
+    }
+
+    /* Brand Logo with Live Status Pulse */
+    .brand-logo-wrap {
+      display: flex;
+      align-items: center;
+      gap: 10px;
       text-decoration: none;
+    }
+
+    .brand-pulse-dot {
+      width: 10px;
+      height: 10px;
+      background: var(--pink-primary);
+      border-radius: 50%;
+      box-shadow: 0 0 10px var(--pink-primary);
+      animation: pulseBrand 2s infinite;
+    }
+
+    @keyframes pulseBrand {
+      0% { transform: scale(0.9); box-shadow: 0 0 0 0 rgba(255, 0, 127, 0.7); }
+      70% { transform: scale(1.15); box-shadow: 0 0 0 8px rgba(255, 0, 127, 0); }
+      100% { transform: scale(0.9); box-shadow: 0 0 0 0 rgba(255, 0, 127, 0); }
+    }
+
+    .brand-logo {
+      font-size: 1.25rem;
+      font-weight: 900;
+      color: var(--text-heading);
       letter-spacing: -0.02em;
       white-space: nowrap;
     }
-    .logo span { color: var(--pink-primary); }
+    .brand-logo span { color: var(--pink-primary); }
 
-    .nav-links {
-      display: flex;
-      gap: 28px;
-      list-style: none;
-    }
-
-    .nav-links a {
-      color: var(--text-muted);
-      text-decoration: none;
-      font-size: 0.95rem;
-      font-weight: 600;
-      transition: color 0.25s ease;
-    }
-    .nav-links a:hover { color: var(--pink-primary); }
-
-    .nav-actions {
+    /* Navigation Links Pills */
+    .nav-links-dock {
       display: flex;
       align-items: center;
-      gap: 12px;
+      gap: 6px;
+      list-style: none;
+      background: rgba(255, 255, 255, 0.04);
+      padding: 4px 6px;
+      border-radius: 100px;
+      border: 1px solid rgba(255, 255, 255, 0.06);
     }
 
-    /* Theme & Language Switcher Buttons */
-    .ctrl-btn {
-      height: 40px;
-      padding: 0 16px;
+    [data-theme="light"] .nav-links-dock {
+      background: rgba(0, 0, 0, 0.03);
+      border-color: rgba(0, 0, 0, 0.05);
+    }
+
+    .nav-links-dock a {
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 0.88rem;
+      font-weight: 700;
+      padding: 6px 14px;
+      border-radius: 100px;
+      transition: var(--transition-smooth);
+      white-space: nowrap;
+      display: inline-block;
+    }
+
+    .nav-links-dock a:hover {
+      color: #FFF;
+      background: var(--pink-primary);
+      box-shadow: 0 0 15px var(--pink-glow);
+      transform: translateY(-1px);
+    }
+
+    /* Actions Container */
+    .nav-actions-dock {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    /* Language Switcher Button */
+    .lang-pill-btn {
+      height: 38px;
+      padding: 0 14px;
       border-radius: var(--radius-full);
       background: var(--badge-bg);
       border: 1px solid var(--card-border);
       color: var(--text-heading);
-      font-size: 0.88rem;
-      font-weight: 700;
+      font-size: 0.85rem;
+      font-weight: 800;
       font-family: inherit;
       display: inline-flex;
       align-items: center;
-      justify-content: center;
-      gap: 8px;
+      gap: 7px;
       cursor: pointer;
       transition: var(--transition-smooth);
       white-space: nowrap;
     }
 
-    .ctrl-btn:hover {
+    .lang-pill-btn:hover {
       background: var(--pink-primary);
       color: #FFF !important;
       border-color: var(--pink-primary);
-      box-shadow: 0 0 18px var(--pink-glow);
+      box-shadow: 0 0 16px var(--pink-glow);
       transform: translateY(-2px);
     }
 
-    .ctrl-btn.icon-only {
-      width: 40px;
-      padding: 0;
-      font-size: 1.05rem;
+    /* ==========================================================================
+       REALISTIC LIGHT SWITCH ("كوبس اللمبة")
+       ========================================================================== */
+    .lamp-switch-plate {
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      background: var(--switch-plate-bg);
+      border: 1.5px solid var(--switch-plate-border);
+      padding: 4px 12px 4px 6px;
+      border-radius: 100px;
+      cursor: pointer;
+      user-select: none;
+      position: relative;
+      overflow: hidden;
+      transition: var(--transition-smooth);
+      box-shadow: 0 4px 14px rgba(0,0,0,0.25);
     }
 
-    .resume-nav-btn {
-      padding: 8px 18px;
-      font-size: 0.85rem;
+    .lamp-switch-plate:hover {
+      border-color: var(--pink-primary);
+      box-shadow: 0 0 20px var(--pink-glow);
+      transform: translateY(-2px);
+    }
+
+    /* Subtle Watermark Bulb inside the Switch */
+    .switch-watermark-icon {
+      position: absolute;
+      right: 5px;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 1.7rem;
+      color: var(--pink-primary);
+      opacity: 0.12;
+      pointer-events: none;
+      transition: all 0.4s ease;
+    }
+
+    [data-theme="light"] .switch-watermark-icon {
+      color: #FFB800;
+      opacity: 0.28;
+      filter: drop-shadow(0 0 8px #FFB800);
+    }
+
+    /* 3D Rocker Button Mechanism ("الكوبس") */
+    .rocker-track {
+      width: 42px;
+      height: 24px;
+      background: var(--rocker-track-bg);
+      border-radius: 100px;
+      position: relative;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      box-shadow: inset 0 2px 5px rgba(0,0,0,0.6);
+      transition: all 0.35s ease;
+      display: flex;
+      align-items: center;
+      flex-shrink: 0;
+    }
+
+    [data-theme="light"] .rocker-track {
+      border-color: rgba(255, 184, 0, 0.4);
+      box-shadow: inset 0 2px 4px rgba(0,0,0,0.15), 0 0 8px rgba(255, 184, 0, 0.3);
+    }
+
+    .rocker-knob {
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      background: var(--rocker-knob-bg);
+      box-shadow: var(--rocker-knob-shadow);
+      position: absolute;
+      left: 3px;
+      top: 2px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+
+    .rocker-knob i {
+      font-size: 8px;
+      color: #FFF;
+      transition: transform 0.35s ease;
+    }
+
+    [data-theme="light"] .rocker-knob {
+      left: 19px;
+    }
+
+    [dir="rtl"] .rocker-knob {
+      left: auto;
+      right: 3px;
+    }
+
+    [dir="rtl"][data-theme="light"] .rocker-knob {
+      right: 19px;
+    }
+
+    .switch-status-label {
+      font-size: 0.78rem;
+      font-weight: 800;
+      color: var(--switch-text-color);
+      letter-spacing: 0.04em;
+      white-space: nowrap;
+      transition: color 0.3s ease;
+      z-index: 1;
+    }
+
+    /* Resume Button */
+    .resume-nav-pill {
+      padding: 8px 16px;
+      font-size: 0.82rem;
       border-radius: var(--radius-full);
       background: var(--slink-bg);
       border: 1px solid var(--pink-primary);
       color: var(--text-heading);
       text-decoration: none;
-      font-weight: 600;
+      font-weight: 700;
       display: inline-flex;
       align-items: center;
-      gap: 8px;
+      gap: 7px;
       transition: var(--transition-smooth);
+      white-space: nowrap;
     }
-    .resume-nav-btn:hover {
+    .resume-nav-pill:hover {
       background: var(--pink-primary);
-      color: #FFF;
+      color: #FFF !important;
       box-shadow: 0 0 18px var(--pink-glow);
       transform: translateY(-2px);
+    }
+
+    /* Mobile Hamburger Menu Button */
+    .mobile-menu-trigger {
+      display: none;
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      background: var(--badge-bg);
+      border: 1px solid var(--card-border);
+      color: var(--text-heading);
+      font-size: 1.1rem;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: var(--transition-smooth);
+    }
+    .mobile-menu-trigger:hover {
+      background: var(--pink-primary);
+      color: #FFF;
+    }
+
+    /* Mobile Dropdown Menu Capsule */
+    .mobile-nav-drawer {
+      display: none;
+      position: fixed;
+      top: 80px;
+      left: 16px;
+      right: 16px;
+      max-width: 480px;
+      margin: 0 auto;
+      background: var(--nav-glass-bg);
+      backdrop-filter: blur(28px);
+      -webkit-backdrop-filter: blur(28px);
+      border: 1px solid var(--nav-glass-border);
+      border-radius: var(--radius-md);
+      box-shadow: var(--nav-glass-shadow);
+      padding: 16px;
+      z-index: 998;
+      transform: translateY(-20px);
+      opacity: 0;
+      pointer-events: none;
+      transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .mobile-nav-drawer.open {
+      transform: translateY(0);
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .mobile-nav-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .mobile-nav-list a {
+      color: var(--text-heading);
+      text-decoration: none;
+      font-size: 0.95rem;
+      font-weight: 700;
+      padding: 12px 18px;
+      border-radius: var(--radius-sm);
+      display: block;
+      transition: var(--transition-smooth);
+    }
+    .mobile-nav-list a:hover {
+      background: var(--pink-primary);
+      color: #FFF;
     }
 
     /* ==========================================================================
        HERO SECTION
        ========================================================================== */
     .hero-section {
-      min-height: 92vh;
+      min-height: 94vh;
       display: flex;
       flex-direction: column;
       justify-content: center;
       align-items: center;
-      padding-top: 130px;
+      padding-top: 140px;
       padding-bottom: 60px;
       text-align: center;
       position: relative;
@@ -331,7 +630,7 @@
 
     .hero-title {
       font-size: clamp(2.8rem, 5vw, 4.2rem);
-      font-weight: 800;
+      font-weight: 900;
       letter-spacing: -0.02em;
       line-height: 1.15;
       margin-bottom: 16px;
@@ -341,7 +640,7 @@
     .hero-subtitle {
       font-size: 1.25rem;
       color: var(--rose-light);
-      font-weight: 600;
+      font-weight: 700;
       margin-bottom: 24px;
       max-width: 680px;
     }
@@ -349,7 +648,7 @@
     .hero-bio {
       font-size: 1.05rem;
       color: var(--text-muted);
-      max-width: 650px;
+      max-width: 660px;
       margin-bottom: 34px;
       line-height: 1.7;
     }
@@ -408,7 +707,7 @@
 
     .section-title {
       font-size: clamp(2rem, 3.8vw, 2.8rem);
-      font-weight: 800;
+      font-weight: 900;
       margin-bottom: 40px;
       letter-spacing: -0.02em;
       color: var(--text-heading);
@@ -453,7 +752,7 @@
 
     .pcard-category {
       font-size: 0.8rem;
-      font-weight: 700;
+      font-weight: 800;
       color: var(--pink-primary);
       background: var(--badge-bg);
       border: 1px solid var(--card-border);
@@ -545,7 +844,7 @@
 
     .stag {
       font-size: 0.82rem;
-      font-weight: 600;
+      font-weight: 700;
       padding: 6px 14px;
       background: var(--tag-bg);
       border: 1px solid var(--card-border);
@@ -599,7 +898,7 @@
     .cert-info p {
       font-size: 0.85rem;
       color: var(--rose-light);
-      font-weight: 600;
+      font-weight: 700;
     }
 
     .cert-btn-icon {
@@ -670,7 +969,7 @@
       padding: 30px 0;
       text-align: center;
       font-size: 0.88rem;
-      font-weight: 600;
+      font-weight: 700;
       color: var(--text-muted);
       border-top: 1px solid var(--card-border);
     }
@@ -761,7 +1060,7 @@
 
     .modal-title {
       font-size: 1.8rem;
-      font-weight: 800;
+      font-weight: 900;
       color: var(--text-heading);
       margin-bottom: 20px;
       line-height: 1.25;
@@ -813,26 +1112,78 @@
       box-shadow: 0 15px 35px var(--pink-primary);
     }
 
-    @media (max-width: 860px) {
-      .nav-links { display: none; }
+    /* Responsive */
+    @media (max-width: 920px) {
+      .nav-links-dock { display: none; }
+      .mobile-menu-trigger { display: flex; }
+      .mobile-nav-drawer { display: block; }
       .modal-card { padding: 30px 22px; }
       .hero-title { font-size: 2.5rem; }
+      .resume-nav-pill span { display: none; }
+      .resume-nav-pill { padding: 8px 12px; }
+      .watermark-lamp-scene { width: 140px; height: 260px; }
     }
   </style>
 </head>
 <body>
+
+  <!-- Atmospheric Light Cone from Lamp Watermark -->
+  <div class="watermark-light-cone"></div>
 
   <!-- Ambient Glow Orbs & Particle Canvas -->
   <div class="orb orb-1"></div>
   <div class="orb orb-2"></div>
   <canvas id="particle-canvas"></canvas>
 
-  <!-- NAVBAR -->
-  <header class="navbar" id="navbar">
-    <div class="container nav-container">
-      <a href="#" class="logo">MARIAM<span>.DEV</span></a>
+  <!-- WATERMARK CEILING LAMP ("العلامة المائية للمبة") -->
+  <div class="watermark-lamp-scene" onclick="toggleTheme()" style="cursor: pointer;" title="انقر لتشغيل/إطفاء الإضاءة">
+    <svg class="watermark-lamp-svg" viewBox="0 0 200 350" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <!-- Hanging Cord -->
+      <line x1="100" y1="0" x2="100" y2="120" stroke="currentColor" stroke-width="3" stroke-dasharray="4 2"/>
+      <!-- Lamp Socket -->
+      <rect x="88" y="120" width="24" height="26" rx="4" fill="currentColor"/>
+      <rect x="82" y="142" width="36" height="8" rx="3" fill="currentColor"/>
+      <!-- Bulb Glass Silhouette -->
+      <path d="M100 150 C60 150, 45 195, 65 240 C75 262, 86 280, 88 295 L112 295 C114 280, 125 262, 135 240 C155 195, 140 150, 100 150 Z" 
+            stroke="currentColor" stroke-width="4" fill="url(#bulbFill)"/>
+      <!-- Bulb Bottom Cap -->
+      <path d="M88 295 L112 295 L108 308 L92 308 Z" fill="currentColor"/>
+      <!-- Inner Glowing Filament -->
+      <path d="M92 200 L97 235 L103 235 L108 200" stroke="#FF007F" stroke-width="3" stroke-linecap="round" id="lampFilament"/>
+      <circle cx="100" cy="225" r="16" fill="url(#filamentGlow)" id="filamentHalo" opacity="0.4"/>
+      <!-- Radiating Light Rays (Watermark) -->
+      <g id="lampRays" opacity="0.3">
+        <line x1="100" y1="320" x2="100" y2="345" stroke="#FFB800" stroke-width="2" stroke-linecap="round"/>
+        <line x1="60" y1="280" x2="40" y2="300" stroke="#FFB800" stroke-width="2" stroke-linecap="round"/>
+        <line x1="140" y1="280" x2="160" y2="300" stroke="#FFB800" stroke-width="2" stroke-linecap="round"/>
+        <line x1="45" y1="210" x2="20" y2="215" stroke="#FFB800" stroke-width="2" stroke-linecap="round"/>
+        <line x1="155" y1="210" x2="180" y2="215" stroke="#FFB800" stroke-width="2" stroke-linecap="round"/>
+      </g>
+      <defs>
+        <linearGradient id="bulbFill" x1="100" y1="150" x2="100" y2="300" gradientUnits="userSpaceOnUse">
+          <stop offset="0%" stop-color="#FF007F" stop-opacity="0.05"/>
+          <stop offset="100%" stop-color="#9D00FF" stop-opacity="0.15"/>
+        </linearGradient>
+        <radialGradient id="filamentGlow" cx="50%" cy="50%" r="50%">
+          <stop offset="0%" stop-color="#FFB800" stop-opacity="0.9"/>
+          <stop offset="100%" stop-color="#FF007F" stop-opacity="0"/>
+        </radialGradient>
+      </defs>
+    </svg>
+  </div>
+
+  <!-- FLOATING CAPSULE APP BAR (ULTRA MODERN ISLAND) -->
+  <div class="navbar-floating-wrapper">
+    <nav class="navbar-capsule" id="navbarCapsule">
       
-      <ul class="nav-links">
+      <!-- Brand Logo -->
+      <a href="#" class="brand-logo-wrap">
+        <div class="brand-pulse-dot"></div>
+        <div class="brand-logo">MARIAM<span>.DEV</span></div>
+      </a>
+
+      <!-- Desktop Links Dock -->
+      <ul class="nav-links-dock">
         <li><a href="#about" data-i18n="navAbout">About</a></li>
         <li><a href="#projects" data-i18n="navProjects">Projects</a></li>
         <li><a href="#skills" data-i18n="navSkills">Skills</a></li>
@@ -840,25 +1191,50 @@
         <li><a href="#connect" data-i18n="navConnect">Connect</a></li>
       </ul>
 
-      <div class="nav-actions">
-        <!-- Language Switcher Button -->
-        <button id="langToggleBtn" class="ctrl-btn" onclick="toggleLanguage()" title="Switch Language / تبديل اللغة">
+      <!-- Interactive Actions Dock -->
+      <div class="nav-actions-dock">
+        
+        <!-- Language Switcher Pill -->
+        <button id="langToggleBtn" class="lang-pill-btn" onclick="toggleLanguage()" title="Switch Language / تبديل اللغة">
           <i class="fa-solid fa-globe"></i>
           <span id="langBtnText">عربي</span>
         </button>
 
-        <!-- Theme Switcher Button -->
-        <button id="themeToggleBtn" class="ctrl-btn icon-only" onclick="toggleTheme()" title="Toggle Dark/Light Mode">
-          <i class="fa-solid fa-sun" id="themeIcon"></i>
-        </button>
+        <!-- REALISTIC LAMP SWITCH ("كوبس اللمبة") -->
+        <div class="lamp-switch-plate" id="lampSwitchBtn" onclick="toggleTheme()" title="مفتاح الإضاءة / Light Switch">
+          <i class="fa-solid fa-lightbulb switch-watermark-icon"></i>
+          <div class="rocker-track">
+            <div class="rocker-knob">
+              <i class="fa-solid fa-power-off"></i>
+            </div>
+          </div>
+          <span class="switch-status-label" id="switchStatusLabel">DARK</span>
+        </div>
 
         <!-- Resume Pill Link -->
-        <a href="https://drive.google.com/file/d/1GIoUXqjEOkenBVBMg_bQDgN55gwFGScC/view?usp=drive_link" target="_blank" rel="noopener" class="resume-nav-btn">
+        <a href="https://drive.google.com/file/d/1GIoUXqjEOkenBVBMg_bQDgN55gwFGScC/view?usp=drive_link" target="_blank" rel="noopener" class="resume-nav-pill">
           <i class="fa-solid fa-file-pdf"></i> <span data-i18n="navResume">Resume</span>
         </a>
+
+        <!-- Mobile Menu Trigger -->
+        <button class="mobile-menu-trigger" id="mobileMenuBtn" onclick="toggleMobileMenu()" aria-label="Toggle Navigation Menu">
+          <i class="fa-solid fa-bars" id="menuIcon"></i>
+        </button>
+
       </div>
-    </div>
-  </header>
+    </nav>
+  </div>
+
+  <!-- Mobile Dropdown Navigation Drawer -->
+  <div class="mobile-nav-drawer" id="mobileNavDrawer">
+    <ul class="mobile-nav-list">
+      <li><a href="#about" onclick="closeMobileMenu()" data-i18n="navAbout">About</a></li>
+      <li><a href="#projects" onclick="closeMobileMenu()" data-i18n="navProjects">Projects</a></li>
+      <li><a href="#skills" onclick="closeMobileMenu()" data-i18n="navSkills">Skills</a></li>
+      <li><a href="#certifications" onclick="closeMobileMenu()" data-i18n="navCerts">Certifications</a></li>
+      <li><a href="#connect" onclick="closeMobileMenu()" data-i18n="navConnect">Connect</a></li>
+    </ul>
+  </div>
 
   <!-- HERO SECTION -->
   <section class="hero-section" id="hero">
@@ -1068,6 +1444,8 @@
       en: {
         pageTitle: "Mariam Alnasseri — Executive Portfolio",
         langBtn: "عربي",
+        switchOn: "LIGHT",
+        switchOff: "DARK",
         navAbout: "About",
         navProjects: "Projects",
         navSkills: "Skills",
@@ -1102,6 +1480,8 @@
       ar: {
         pageTitle: "مريم الناصري — معرض الأعمال والمشاريع البرمجية",
         langBtn: "English",
+        switchOn: "نهاري",
+        switchOff: "ليلي",
         navAbout: "نبذة عني",
         navProjects: "المشاريع",
         navSkills: "المهارات",
@@ -1344,14 +1724,18 @@
       AOS.init({ duration: 650, once: true, offset: 50 });
       initParticleCanvas();
       
-      const navbar = document.getElementById('navbar');
+      const capsule = document.getElementById('navbarCapsule');
       window.addEventListener('scroll', () => {
-        if (window.scrollY > 40) navbar.classList.add('scrolled');
-        else navbar.classList.remove('scrolled');
+        if (window.scrollY > 30) {
+          capsule.style.padding = '8px 18px';
+          capsule.style.boxShadow = '0 20px 45px rgba(0, 0, 0, 0.45), 0 0 25px var(--pink-glow)';
+        } else {
+          capsule.style.padding = '10px 22px';
+        }
       });
     });
 
-    /* THEME TOGGLER */
+    /* THEME TOGGLER (كوبس اللمبة) */
     function toggleTheme() {
       currentTheme = (currentTheme === 'dark') ? 'light' : 'dark';
       localStorage.setItem('portfolio_theme', currentTheme);
@@ -1360,11 +1744,19 @@
 
     function applyTheme(theme) {
       document.documentElement.setAttribute('data-theme', theme);
-      const icon = document.getElementById('themeIcon');
+      const label = document.getElementById('switchStatusLabel');
       if (theme === 'light') {
-        icon.className = 'fa-solid fa-moon';
+        label.innerText = i18n[currentLang].switchOn;
+        document.getElementById('lampFilament').setAttribute('stroke', '#FFB800');
+        document.getElementById('lampFilament').setAttribute('stroke-width', '4');
+        document.getElementById('filamentHalo').setAttribute('opacity', '0.9');
+        document.getElementById('lampRays').setAttribute('opacity', '1');
       } else {
-        icon.className = 'fa-solid fa-sun';
+        label.innerText = i18n[currentLang].switchOff;
+        document.getElementById('lampFilament').setAttribute('stroke', '#FF007F');
+        document.getElementById('lampFilament').setAttribute('stroke-width', '3');
+        document.getElementById('filamentHalo').setAttribute('opacity', '0.3');
+        document.getElementById('lampRays').setAttribute('opacity', '0.15');
       }
     }
 
@@ -1383,6 +1775,7 @@
 
       // Update button text
       document.getElementById('langBtnText').innerText = data.langBtn;
+      document.getElementById('switchStatusLabel').innerText = (currentTheme === 'light') ? data.switchOn : data.switchOff;
 
       // Update static i18n elements
       document.querySelectorAll('[data-i18n]').forEach(el => {
@@ -1403,6 +1796,26 @@
       // Re-render Dynamic Cards
       renderProjects(lang);
       renderCerts(lang);
+    }
+
+    /* MOBILE MENU TOGGLE */
+    function toggleMobileMenu() {
+      const drawer = document.getElementById('mobileNavDrawer');
+      const icon = document.getElementById('menuIcon');
+      const isOpen = drawer.classList.contains('open');
+      if (isOpen) {
+        drawer.classList.remove('open');
+        icon.className = 'fa-solid fa-bars';
+      } else {
+        drawer.classList.add('open');
+        icon.className = 'fa-solid fa-xmark';
+      }
+    }
+
+    function closeMobileMenu() {
+      const drawer = document.getElementById('mobileNavDrawer');
+      drawer.classList.remove('open');
+      document.getElementById('menuIcon').className = 'fa-solid fa-bars';
     }
 
     /* RENDER PROJECTS */
@@ -1553,7 +1966,7 @@
 
       function draw() {
         ctx.clearRect(0, 0, w, h);
-        const color = (currentTheme === 'light') ? 'rgba(230, 0, 111, 0.5)' : 'rgba(255, 0, 127, 0.7)';
+        const color = (currentTheme === 'light') ? 'rgba(230, 0, 111, 0.45)' : 'rgba(255, 0, 127, 0.65)';
         const lineColor = (currentTheme === 'light') ? 'rgba(230, 0, 111,' : 'rgba(255, 0, 127,';
 
         for (let i = 0; i < particles.length; i++) {
@@ -1566,7 +1979,7 @@
           ctx.beginPath();
           ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
           ctx.fillStyle = color;
-          ctx.shadowBlur = (currentTheme === 'light') ? 3 : 8;
+          ctx.shadowBlur = (currentTheme === 'light') ? 2 : 6;
           ctx.shadowColor = (currentTheme === 'light') ? '#E6006F' : '#FF007F';
           ctx.fill();
 
