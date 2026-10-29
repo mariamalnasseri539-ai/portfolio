@@ -1,15 +1,15 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" dir="ltr" data-theme="dark">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Mariam Alnasseri — Executive Portfolio</title>
-  <meta name="description" content="Official Portfolio of Mariam Alnasseri — Software Developer specializing in Flutter, Laravel & AI. UST IT Student. Born Oct 6, 2006.">
+  <meta name="description" content="Official Portfolio of Mariam Alnasseri — Software Developer specializing in Flutter, Laravel & AI. UST IT Student.">
   
-  <!-- Clean Modern Google Font: Plus Jakarta Sans -->
+  <!-- Modern Google Fonts: Plus Jakarta Sans (EN) & Cairo (AR) -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
   
   <!-- FontAwesome 6 Icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
@@ -19,11 +19,12 @@
 
   <style>
     /* ==========================================================================
-       CLEAN FEMININE LUXURY MAGENTA SYSTEM & MODERN TYPOGRAPHY
+       THEME VARIABLES & TYPOGRAPHY SYSTEM
        ========================================================================== */
     :root {
       --bg-dark: #0B0612;
-      --bg-card: rgba(26, 14, 38, 0.6);
+      --bg-card: rgba(26, 14, 38, 0.65);
+      --bg-card-hover: rgba(38, 20, 56, 0.85);
       --bg-modal: #150A21;
       
       --pink-primary: #FF007F;
@@ -33,13 +34,55 @@
       
       --text-main: #FFFFFF;
       --text-muted: #CDB7D9;
+      --text-heading: #FFFFFF;
       
-      --font-main: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+      --card-border: rgba(255, 0, 127, 0.18);
+      --nav-bg: rgba(11, 6, 18, 0.92);
+      --nav-border: rgba(255, 0, 127, 0.18);
+      --badge-bg: rgba(255, 0, 127, 0.1);
+      --tag-bg: rgba(255, 255, 255, 0.05);
+      --slink-bg: rgba(11, 6, 18, 0.85);
+      --orb-opacity: 0.35;
+      
+      --font-en: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+      --font-ar: 'Cairo', 'Plus Jakarta Sans', sans-serif;
+      --font-current: var(--font-en);
       
       --radius-sm: 12px;
       --radius-md: 20px;
       --radius-lg: 32px;
       --radius-full: 9999px;
+      
+      --transition-smooth: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    /* Light Mode Luxury Palette */
+    [data-theme="light"] {
+      --bg-dark: #FAF6FB;
+      --bg-card: rgba(255, 255, 255, 0.88);
+      --bg-card-hover: #FFFFFF;
+      --bg-modal: #FFFFFF;
+      
+      --pink-primary: #E6006F;
+      --pink-glow: rgba(230, 0, 111, 0.2);
+      --rose-light: #B8005A;
+      --purple-soft: #7A00CC;
+      
+      --text-main: #24142E;
+      --text-muted: #6B5573;
+      --text-heading: #170821;
+      
+      --card-border: rgba(230, 0, 111, 0.16);
+      --nav-bg: rgba(250, 246, 251, 0.95);
+      --nav-border: rgba(230, 0, 111, 0.15);
+      --badge-bg: rgba(230, 0, 111, 0.08);
+      --tag-bg: rgba(230, 0, 111, 0.06);
+      --slink-bg: #FFFFFF;
+      --orb-opacity: 0.12;
+    }
+
+    [dir="rtl"] {
+      --font-current: var(--font-ar);
     }
 
     *, *::before, *::after {
@@ -50,15 +93,16 @@
 
     html {
       scroll-behavior: smooth;
-      color-scheme: dark;
+      transition: background-color 0.3s ease, color 0.3s ease;
     }
 
     body {
       background-color: var(--bg-dark);
       color: var(--text-main);
-      font-family: var(--font-main);
+      font-family: var(--font-current);
       overflow-x: hidden;
       line-height: 1.6;
+      transition: background-color 0.3s ease, color 0.3s ease;
     }
 
     /* Custom Scrollbar */
@@ -83,7 +127,8 @@
       filter: blur(140px);
       pointer-events: none;
       z-index: 0;
-      opacity: 0.35;
+      opacity: var(--orb-opacity);
+      transition: opacity 0.4s ease;
     }
     .orb-1 { width: 450px; height: 450px; background: var(--pink-primary); top: -100px; left: -100px; }
     .orb-2 { width: 450px; height: 450px; background: var(--purple-soft); bottom: -100px; right: -100px; }
@@ -104,7 +149,7 @@
     }
 
     /* ==========================================================================
-       NAVBAR
+       NAVBAR & INTERACTIVE CONTROLS
        ========================================================================== */
     .navbar {
       position: fixed;
@@ -112,35 +157,38 @@
       left: 0;
       right: 0;
       z-index: 100;
-      padding: 20px 0;
+      padding: 18px 0;
       transition: all 0.3s ease;
     }
 
     .navbar.scrolled {
-      padding: 14px 0;
-      background: rgba(11, 6, 18, 0.92);
+      padding: 12px 0;
+      background: var(--nav-bg);
       backdrop-filter: blur(20px);
-      border-bottom: 1px solid rgba(255, 0, 127, 0.18);
+      border-bottom: 1px solid var(--nav-border);
+      box-shadow: 0 4px 20px rgba(0,0,0,0.06);
     }
 
     .nav-container {
       display: flex;
       align-items: center;
       justify-content: space-between;
+      gap: 16px;
     }
 
     .logo {
-      font-size: 1.4rem;
+      font-size: 1.35rem;
       font-weight: 800;
-      color: #FFF;
+      color: var(--text-heading);
       text-decoration: none;
       letter-spacing: -0.02em;
+      white-space: nowrap;
     }
     .logo span { color: var(--pink-primary); }
 
     .nav-links {
       display: flex;
-      gap: 32px;
+      gap: 28px;
       list-style: none;
     }
 
@@ -148,16 +196,77 @@
       color: var(--text-muted);
       text-decoration: none;
       font-size: 0.95rem;
-      font-weight: 500;
+      font-weight: 600;
       transition: color 0.25s ease;
     }
     .nav-links a:hover { color: var(--pink-primary); }
 
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    /* Theme & Language Switcher Buttons */
+    .ctrl-btn {
+      height: 40px;
+      padding: 0 16px;
+      border-radius: var(--radius-full);
+      background: var(--badge-bg);
+      border: 1px solid var(--card-border);
+      color: var(--text-heading);
+      font-size: 0.88rem;
+      font-weight: 700;
+      font-family: inherit;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      cursor: pointer;
+      transition: var(--transition-smooth);
+      white-space: nowrap;
+    }
+
+    .ctrl-btn:hover {
+      background: var(--pink-primary);
+      color: #FFF !important;
+      border-color: var(--pink-primary);
+      box-shadow: 0 0 18px var(--pink-glow);
+      transform: translateY(-2px);
+    }
+
+    .ctrl-btn.icon-only {
+      width: 40px;
+      padding: 0;
+      font-size: 1.05rem;
+    }
+
+    .resume-nav-btn {
+      padding: 8px 18px;
+      font-size: 0.85rem;
+      border-radius: var(--radius-full);
+      background: var(--slink-bg);
+      border: 1px solid var(--pink-primary);
+      color: var(--text-heading);
+      text-decoration: none;
+      font-weight: 600;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: var(--transition-smooth);
+    }
+    .resume-nav-btn:hover {
+      background: var(--pink-primary);
+      color: #FFF;
+      box-shadow: 0 0 18px var(--pink-glow);
+      transform: translateY(-2px);
+    }
+
     /* ==========================================================================
-       HERO SECTION (CLEAN & MINIMAL WITH ARROW INDICATOR)
+       HERO SECTION
        ========================================================================== */
     .hero-section {
-      min-height: 95vh;
+      min-height: 92vh;
       display: flex;
       flex-direction: column;
       justify-content: center;
@@ -175,7 +284,7 @@
       background: linear-gradient(135deg, rgba(255, 0, 127, 0.3), rgba(157, 0, 255, 0.3));
       border: 3px solid var(--pink-primary);
       box-shadow: 0 0 40px var(--pink-glow);
-      margin-bottom: 28px;
+      margin-bottom: 26px;
       overflow: hidden;
       display: flex;
       align-items: center;
@@ -197,12 +306,12 @@
       align-items: center;
       gap: 8px;
       padding: 6px 18px;
-      background: rgba(255, 0, 127, 0.1);
-      border: 1px solid rgba(255, 0, 127, 0.3);
+      background: var(--badge-bg);
+      border: 1px solid var(--card-border);
       border-radius: var(--radius-full);
       font-size: 0.85rem;
       color: var(--pink-primary);
-      font-weight: 600;
+      font-weight: 700;
     }
 
     .pulse-dot {
@@ -211,29 +320,38 @@
       background: var(--pink-primary);
       border-radius: 50%;
       box-shadow: 0 0 10px var(--pink-primary);
+      animation: pulse 1.8s infinite;
+    }
+
+    @keyframes pulse {
+      0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(255, 0, 127, 0.7); }
+      70% { transform: scale(1); box-shadow: 0 0 0 10px rgba(255, 0, 127, 0); }
+      100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(255, 0, 127, 0); }
     }
 
     .hero-title {
       font-size: clamp(2.8rem, 5vw, 4.2rem);
       font-weight: 800;
-      letter-spacing: -0.03em;
+      letter-spacing: -0.02em;
       line-height: 1.15;
       margin-bottom: 16px;
+      color: var(--text-heading);
     }
 
     .hero-subtitle {
       font-size: 1.25rem;
       color: var(--rose-light);
-      font-weight: 500;
+      font-weight: 600;
       margin-bottom: 24px;
-      max-width: 650px;
+      max-width: 680px;
     }
 
     .hero-bio {
       font-size: 1.05rem;
       color: var(--text-muted);
-      max-width: 620px;
-      margin-bottom: 36px;
+      max-width: 650px;
+      margin-bottom: 34px;
+      line-height: 1.7;
     }
 
     /* Scroll Arrow Button */
@@ -245,9 +363,9 @@
       color: var(--text-muted);
       text-decoration: none;
       font-size: 0.9rem;
-      font-weight: 600;
+      font-weight: 700;
       transition: all 0.3s ease;
-      margin-top: 20px;
+      margin-top: 15px;
     }
 
     .arrow-icon-circle {
@@ -255,7 +373,7 @@
       height: 46px;
       border-radius: 50%;
       border: 1px solid var(--pink-primary);
-      background: rgba(255, 0, 127, 0.1);
+      background: var(--badge-bg);
       color: var(--pink-primary);
       display: flex;
       align-items: center;
@@ -265,9 +383,7 @@
       animation: bounceDown 2s infinite;
     }
 
-    .scroll-arrow-btn:hover {
-      color: var(--pink-primary);
-    }
+    .scroll-arrow-btn:hover { color: var(--pink-primary); }
 
     @keyframes bounceDown {
       0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
@@ -276,7 +392,7 @@
     }
 
     /* ==========================================================================
-       SECTION STYLES
+       SECTIONS SHARED STYLES
        ========================================================================== */
     section { padding: 90px 0; }
 
@@ -285,7 +401,7 @@
       color: var(--pink-primary);
       text-transform: uppercase;
       letter-spacing: 0.18em;
-      font-weight: 700;
+      font-weight: 800;
       margin-bottom: 10px;
       display: block;
     }
@@ -295,10 +411,11 @@
       font-weight: 800;
       margin-bottom: 40px;
       letter-spacing: -0.02em;
+      color: var(--text-heading);
     }
 
     /* ==========================================================================
-       PROJECTS SECTION (CLEAN TITLE ONLY CARDS THAT OPEN MODAL)
+       PROJECTS GRID & CARDS
        ========================================================================== */
     .projects-grid {
       display: grid;
@@ -309,11 +426,11 @@
     .project-card {
       background: var(--bg-card);
       backdrop-filter: blur(16px);
-      border: 1px solid rgba(255, 0, 127, 0.18);
+      border: 1px solid var(--card-border);
       border-radius: var(--radius-md);
       padding: 30px;
       cursor: pointer;
-      transition: all 0.35s ease;
+      transition: var(--transition-smooth);
       display: flex;
       flex-direction: column;
       justify-content: space-between;
@@ -322,8 +439,9 @@
 
     .project-card:hover {
       transform: translateY(-6px);
+      background: var(--bg-card-hover);
       border-color: var(--pink-primary);
-      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4), 0 0 25px var(--pink-glow);
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.25), 0 0 25px var(--pink-glow);
     }
 
     .pcard-top {
@@ -337,8 +455,8 @@
       font-size: 0.8rem;
       font-weight: 700;
       color: var(--pink-primary);
-      background: rgba(255, 0, 127, 0.12);
-      border: 1px solid rgba(255, 0, 127, 0.3);
+      background: var(--badge-bg);
+      border: 1px solid var(--card-border);
       padding: 4px 14px;
       border-radius: var(--radius-full);
     }
@@ -347,8 +465,8 @@
       width: 38px;
       height: 38px;
       border-radius: 50%;
-      background: rgba(255, 255, 255, 0.05);
-      border: 1px solid rgba(255, 0, 127, 0.2);
+      background: var(--tag-bg);
+      border: 1px solid var(--card-border);
       color: var(--text-muted);
       display: flex;
       align-items: center;
@@ -360,23 +478,28 @@
       background: var(--pink-primary);
       color: #FFF;
       border-color: var(--pink-primary);
-      transform: translateX(4px);
+      transform: scale(1.08);
+    }
+
+    [dir="rtl"] .pcard-arrow i {
+      transform: rotate(180deg);
     }
 
     .pcard-main-title {
       font-size: 1.35rem;
-      font-weight: 700;
-      color: #FFF;
+      font-weight: 800;
+      color: var(--text-heading);
       margin-bottom: 12px;
+      line-height: 1.3;
     }
 
     .pcard-click-hint {
       font-size: 0.85rem;
       color: var(--text-muted);
-      font-weight: 500;
+      font-weight: 600;
       display: flex;
       align-items: center;
-      gap: 6px;
+      gap: 8px;
       margin-top: 16px;
     }
 
@@ -392,15 +515,21 @@
     .skill-box {
       background: var(--bg-card);
       backdrop-filter: blur(16px);
-      border: 1px solid rgba(255, 0, 127, 0.15);
+      border: 1px solid var(--card-border);
       border-radius: var(--radius-md);
       padding: 24px;
+      transition: var(--transition-smooth);
+    }
+    .skill-box:hover {
+      background: var(--bg-card-hover);
+      border-color: var(--pink-primary);
+      transform: translateY(-4px);
     }
 
     .stitle {
       font-size: 1.1rem;
-      font-weight: 700;
-      color: #FFF;
+      font-weight: 800;
+      color: var(--text-heading);
       margin-bottom: 16px;
       display: flex;
       align-items: center;
@@ -416,15 +545,21 @@
 
     .stag {
       font-size: 0.82rem;
+      font-weight: 600;
       padding: 6px 14px;
-      background: rgba(255, 255, 255, 0.05);
-      border: 1px solid rgba(255, 0, 127, 0.15);
+      background: var(--tag-bg);
+      border: 1px solid var(--card-border);
       border-radius: var(--radius-sm);
       color: var(--text-main);
+      transition: var(--transition-smooth);
+    }
+    .stag:hover {
+      border-color: var(--pink-primary);
+      color: var(--pink-primary);
     }
 
     /* ==========================================================================
-       CERTIFICATIONS SECTION (TITLE CARDS THAT OPEN MODAL/VIEW)
+       CERTIFICATIONS SECTION
        ========================================================================== */
     .certs-grid {
       display: grid;
@@ -435,48 +570,51 @@
     .cert-card {
       background: var(--bg-card);
       backdrop-filter: blur(16px);
-      border: 1px solid rgba(255, 0, 127, 0.18);
+      border: 1px solid var(--card-border);
       border-radius: var(--radius-md);
       padding: 26px;
       cursor: pointer;
-      transition: all 0.35s ease;
+      transition: var(--transition-smooth);
       display: flex;
       align-items: center;
       justify-content: space-between;
+      gap: 16px;
     }
 
     .cert-card:hover {
       transform: translateY(-5px);
+      background: var(--bg-card-hover);
       border-color: var(--pink-primary);
-      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.4), 0 0 20px var(--pink-glow);
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.25), 0 0 20px var(--pink-glow);
     }
 
     .cert-info h3 {
       font-size: 1.1rem;
-      font-weight: 700;
-      color: #FFF;
+      font-weight: 800;
+      color: var(--text-heading);
       margin-bottom: 4px;
+      line-height: 1.35;
     }
 
     .cert-info p {
       font-size: 0.85rem;
       color: var(--rose-light);
+      font-weight: 600;
     }
 
     .cert-btn-icon {
-      width: 42px;
-      height: 42px;
+      width: 44px;
+      height: 44px;
       border-radius: 50%;
-      background: rgba(255, 0, 127, 0.12);
+      background: var(--badge-bg);
       border: 1px solid var(--pink-primary);
       color: var(--pink-primary);
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 1rem;
-      transition: all 0.3s ease;
+      font-size: 1.05rem;
+      transition: var(--transition-smooth);
       flex-shrink: 0;
-      margin-left: 14px;
     }
 
     .cert-card:hover .cert-btn-icon {
@@ -495,6 +633,7 @@
       padding: 50px 30px;
       text-align: center;
       box-shadow: 0 0 40px var(--pink-glow);
+      backdrop-filter: blur(16px);
     }
 
     .social-links {
@@ -508,34 +647,36 @@
     .slink {
       padding: 12px 28px;
       border-radius: var(--radius-full);
-      background: rgba(11, 6, 18, 0.8);
+      background: var(--slink-bg);
       border: 1px solid var(--pink-primary);
-      color: #FFF;
+      color: var(--text-heading);
       text-decoration: none;
       font-size: 0.9rem;
-      font-weight: 600;
+      font-weight: 700;
       display: inline-flex;
       align-items: center;
       gap: 10px;
-      transition: all 0.3s ease;
+      transition: var(--transition-smooth);
     }
 
     .slink:hover {
       background: var(--pink-primary);
-      box-shadow: 0 0 25px var(--pink-primary);
+      color: #FFF !important;
+      box-shadow: 0 0 25px var(--pink-glow);
       transform: translateY(-3px);
     }
 
     footer {
       padding: 30px 0;
       text-align: center;
-      font-size: 0.85rem;
+      font-size: 0.88rem;
+      font-weight: 600;
       color: var(--text-muted);
-      border-top: 1px solid rgba(255, 0, 127, 0.15);
+      border-top: 1px solid var(--card-border);
     }
 
     /* ==========================================================================
-       FULLSCREEN PROJECT & CERTIFICATE MODAL POPUP
+       MODAL POPUP
        ========================================================================== */
     .modal-overlay {
       position: fixed;
@@ -552,6 +693,10 @@
       transition: all 0.35s ease;
     }
 
+    [data-theme="light"] .modal-overlay {
+      background: rgba(240, 230, 245, 0.85);
+    }
+
     .modal-overlay.active {
       opacity: 1;
       pointer-events: auto;
@@ -565,7 +710,7 @@
       max-width: 650px;
       padding: 40px;
       position: relative;
-      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8), 0 0 50px var(--pink-glow);
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4), 0 0 50px var(--pink-glow);
       transform: translateY(30px) scale(0.95);
       transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
     }
@@ -581,9 +726,9 @@
       width: 40px;
       height: 40px;
       border-radius: 50%;
-      background: rgba(255, 255, 255, 0.08);
-      border: 1px solid rgba(255, 0, 127, 0.3);
-      color: #FFF;
+      background: var(--tag-bg);
+      border: 1px solid var(--card-border);
+      color: var(--text-heading);
       font-size: 1.2rem;
       display: flex;
       align-items: center;
@@ -592,15 +737,21 @@
       transition: all 0.3s ease;
     }
 
+    [dir="rtl"] .modal-close-btn {
+      right: auto;
+      left: 20px;
+    }
+
     .modal-close-btn:hover {
       background: var(--pink-primary);
       border-color: var(--pink-primary);
+      color: #FFF;
       transform: rotate(90deg);
     }
 
     .modal-category {
-      font-size: 0.8rem;
-      font-weight: 700;
+      font-size: 0.82rem;
+      font-weight: 800;
       color: var(--pink-primary);
       text-transform: uppercase;
       letter-spacing: 0.1em;
@@ -611,7 +762,7 @@
     .modal-title {
       font-size: 1.8rem;
       font-weight: 800;
-      color: #FFF;
+      color: var(--text-heading);
       margin-bottom: 20px;
       line-height: 1.25;
     }
@@ -633,11 +784,11 @@
     .mtech-tag {
       font-size: 0.82rem;
       padding: 6px 14px;
-      background: rgba(255, 0, 127, 0.12);
-      border: 1px solid rgba(255, 0, 127, 0.3);
+      background: var(--badge-bg);
+      border: 1px solid var(--card-border);
       color: var(--rose-light);
       border-radius: var(--radius-full);
-      font-weight: 600;
+      font-weight: 700;
     }
 
     .modal-action-btn {
@@ -649,10 +800,10 @@
       padding: 16px;
       border-radius: var(--radius-full);
       background: linear-gradient(135deg, var(--pink-primary), var(--purple-soft));
-      color: #FFF;
+      color: #FFF !important;
       text-decoration: none;
       font-size: 1rem;
-      font-weight: 700;
+      font-weight: 800;
       box-shadow: 0 10px 25px var(--pink-glow);
       transition: all 0.3s ease;
     }
@@ -662,9 +813,10 @@
       box-shadow: 0 15px 35px var(--pink-primary);
     }
 
-    @media (max-width: 768px) {
+    @media (max-width: 860px) {
       .nav-links { display: none; }
-      .modal-card { padding: 30px 24px; }
+      .modal-card { padding: 30px 22px; }
+      .hero-title { font-size: 2.5rem; }
     }
   </style>
 </head>
@@ -679,20 +831,36 @@
   <header class="navbar" id="navbar">
     <div class="container nav-container">
       <a href="#" class="logo">MARIAM<span>.DEV</span></a>
+      
       <ul class="nav-links">
-        <li><a href="#about">About</a></li>
-        <li><a href="#projects">Projects</a></li>
-        <li><a href="#skills">Skills</a></li>
-        <li><a href="#certifications">Certifications</a></li>
-        <li><a href="#connect">Connect</a></li>
+        <li><a href="#about" data-i18n="navAbout">About</a></li>
+        <li><a href="#projects" data-i18n="navProjects">Projects</a></li>
+        <li><a href="#skills" data-i18n="navSkills">Skills</a></li>
+        <li><a href="#certifications" data-i18n="navCerts">Certifications</a></li>
+        <li><a href="#connect" data-i18n="navConnect">Connect</a></li>
       </ul>
-      <a href="https://drive.google.com/file/d/1GIoUXqjEOkenBVBMg_bQDgN55gwFGScC/view?usp=drive_link" target="_blank" rel="noopener" class="slink" style="padding: 8px 20px; font-size: 0.85rem;">
-        <i class="fa-solid fa-file-pdf"></i> Resume
-      </a>
+
+      <div class="nav-actions">
+        <!-- Language Switcher Button -->
+        <button id="langToggleBtn" class="ctrl-btn" onclick="toggleLanguage()" title="Switch Language / تبديل اللغة">
+          <i class="fa-solid fa-globe"></i>
+          <span id="langBtnText">عربي</span>
+        </button>
+
+        <!-- Theme Switcher Button -->
+        <button id="themeToggleBtn" class="ctrl-btn icon-only" onclick="toggleTheme()" title="Toggle Dark/Light Mode">
+          <i class="fa-solid fa-sun" id="themeIcon"></i>
+        </button>
+
+        <!-- Resume Pill Link -->
+        <a href="https://drive.google.com/file/d/1GIoUXqjEOkenBVBMg_bQDgN55gwFGScC/view?usp=drive_link" target="_blank" rel="noopener" class="resume-nav-btn">
+          <i class="fa-solid fa-file-pdf"></i> <span data-i18n="navResume">Resume</span>
+        </a>
+      </div>
     </div>
   </header>
 
-  <!-- HERO SECTION (MINIMAL, ELEGANT & ARROW INDICATOR) -->
+  <!-- HERO SECTION -->
   <section class="hero-section" id="hero">
     <div class="container" style="display: flex; flex-direction: column; align-items: center;">
       
@@ -727,28 +895,28 @@
 
       <div class="badges-row" data-aos="fade-up">
         <div class="status-badge">
-          <span class="pulse-dot"></span> UST IT Student · 4th Year
+          <span class="pulse-dot"></span> <span data-i18n="badgeStudent">UST IT Student · 4th Year</span>
         </div>
         <div class="status-badge">
-          <i class="fa-solid fa-cake-candles"></i> Born Oct 6, 2006
+          <i class="fa-solid fa-cake-candles"></i> <span data-i18n="badgeBorn">Born Oct 6, 2006</span>
         </div>
       </div>
 
-      <h1 class="hero-title" data-aos="fade-up" data-aos-delay="100">
+      <h1 class="hero-title" data-aos="fade-up" data-aos-delay="100" id="heroName">
         Mariam <span class="gradient-text">Alnasseri</span>
       </h1>
 
-      <p class="hero-subtitle" data-aos="fade-up" data-aos-delay="150">
+      <p class="hero-subtitle" data-aos="fade-up" data-aos-delay="150" data-i18n="heroSubtitle">
         Software Developer | Flutter &amp; Laravel | AI Enthusiast
       </p>
 
-      <p class="hero-bio" data-aos="fade-up" data-aos-delay="200">
+      <p class="hero-bio" data-aos="fade-up" data-aos-delay="200" data-i18n="heroBio">
         Engineering clean mobile experiences, scalable backend REST APIs, and intelligent artificial intelligence algorithms.
       </p>
 
       <!-- Scroll Arrow Indicator -->
       <a href="#projects" class="scroll-arrow-btn" data-aos="fade-up" data-aos-delay="250">
-        <span>Explore Work &amp; Projects</span>
+        <span data-i18n="heroScroll">Explore Work &amp; Projects</span>
         <div class="arrow-icon-circle">
           <i class="fa-solid fa-arrow-down"></i>
         </div>
@@ -757,110 +925,14 @@
     </div>
   </section>
 
-  <!-- PROJECTS SECTION (SHOWING CLEAN TITLE CARDS ONLY) -->
+  <!-- PROJECTS SECTION -->
   <section id="projects">
     <div class="container">
-      <span class="section-tag" data-aos="fade-up">PORTFOLIO</span>
-      <h2 class="section-title" data-aos="fade-up">My <span class="gradient-text">Projects</span></h2>
+      <span class="section-tag" data-aos="fade-up" data-i18n="tagProjects">PORTFOLIO</span>
+      <h2 class="section-title" data-aos="fade-up" id="projectsSectionTitle">My <span class="gradient-text">Projects</span></h2>
 
-            <div class="projects-grid">
-
-        <!-- Card 1: Hamsawi Chrono 3D -->
-        <div class="project-card" data-aos="fade-up" data-aos-delay="100" onclick="openProjectModal(0)">
-          <div class="pcard-top">
-            <span class="pcard-category">3D WebGL &amp; Three.js</span>
-            <div class="pcard-arrow"><i class="fa-solid fa-arrow-right"></i></div>
-          </div>
-          <h3 class="pcard-main-title">Hamsawi Chrono 3D</h3>
-          <div class="pcard-click-hint">
-            <i class="fa-solid fa-up-right-from-square"></i> Click to view details &amp; source code
-          </div>
-        </div>
-
-        <!-- Card 2: Marib Gourmet Grill & Burger -->
-        <div class="project-card" data-aos="fade-up" data-aos-delay="150" onclick="openProjectModal(1)">
-          <div class="pcard-top">
-            <span class="pcard-category">Sensory Front-End</span>
-            <div class="pcard-arrow"><i class="fa-solid fa-arrow-right"></i></div>
-          </div>
-          <h3 class="pcard-main-title">Marib Gourmet Grill &amp; Burger</h3>
-          <div class="pcard-click-hint">
-            <i class="fa-solid fa-up-right-from-square"></i> Click to view details &amp; source code
-          </div>
-        </div>
-
-        <!-- Card 3: Crepe King Luxury Lounge -->
-        <div class="project-card" data-aos="fade-up" data-aos-delay="200" onclick="openProjectModal(2)">
-          <div class="pcard-top">
-            <span class="pcard-category">Bilingual Web App</span>
-            <div class="pcard-arrow"><i class="fa-solid fa-arrow-right"></i></div>
-          </div>
-          <h3 class="pcard-main-title">Crepe King Luxury Lounge</h3>
-          <div class="pcard-click-hint">
-            <i class="fa-solid fa-up-right-from-square"></i> Click to view details &amp; source code
-          </div>
-        </div>
-
-        <!-- Card 4 -->
-        <div class="project-card" data-aos="fade-up" data-aos-delay="250" onclick="openProjectModal(3)">
-          <div class="pcard-top">
-            <span class="pcard-category">Flutter Mobile</span>
-            <div class="pcard-arrow"><i class="fa-solid fa-arrow-right"></i></div>
-          </div>
-          <h3 class="pcard-main-title">Productive Families App</h3>
-          <div class="pcard-click-hint">
-            <i class="fa-solid fa-up-right-from-square"></i> Click to view details &amp; source code
-          </div>
-        </div>
-
-        <!-- Card 5 -->
-        <div class="project-card" data-aos="fade-up" data-aos-delay="300" onclick="openProjectModal(4)">
-          <div class="pcard-top">
-            <span class="pcard-category">Laravel API</span>
-            <div class="pcard-arrow"><i class="fa-solid fa-arrow-right"></i></div>
-          </div>
-          <h3 class="pcard-main-title">E-Library Backend</h3>
-          <div class="pcard-click-hint">
-            <i class="fa-solid fa-up-right-from-square"></i> Click to view details &amp; source code
-          </div>
-        </div>
-
-        <!-- Card 6 -->
-        <div class="project-card" data-aos="fade-up" data-aos-delay="350" onclick="openProjectModal(5)">
-          <div class="pcard-top">
-            <span class="pcard-category">AI Pathfinding</span>
-            <div class="pcard-arrow"><i class="fa-solid fa-arrow-right"></i></div>
-          </div>
-          <h3 class="pcard-main-title">Vacuum Machine Simulator</h3>
-          <div class="pcard-click-hint">
-            <i class="fa-solid fa-up-right-from-square"></i> Click to view details &amp; source code
-          </div>
-        </div>
-
-        <!-- Card 7 -->
-        <div class="project-card" data-aos="fade-up" data-aos-delay="400" onclick="openProjectModal(6)">
-          <div class="pcard-top">
-            <span class="pcard-category">Machine Learning</span>
-            <div class="pcard-arrow"><i class="fa-solid fa-arrow-right"></i></div>
-          </div>
-          <h3 class="pcard-main-title">AI Salary Predictor</h3>
-          <div class="pcard-click-hint">
-            <i class="fa-solid fa-up-right-from-square"></i> Click to view details &amp; source code
-          </div>
-        </div>
-
-        <!-- Card 8 -->
-        <div class="project-card" data-aos="fade-up" data-aos-delay="450" onclick="openProjectModal(7)">
-          <div class="pcard-top">
-            <span class="pcard-category">UML &amp; Systems</span>
-            <div class="pcard-arrow"><i class="fa-solid fa-arrow-right"></i></div>
-          </div>
-          <h3 class="pcard-main-title">Real-Time Chat Architecture</h3>
-          <div class="pcard-click-hint">
-            <i class="fa-solid fa-up-right-from-square"></i> Click to view details &amp; source code
-          </div>
-        </div>
-
+      <div class="projects-grid" id="projectsGrid">
+        <!-- Rendered dynamically via renderProjects() -->
       </div>
     </div>
   </section>
@@ -868,16 +940,15 @@
   <!-- SKILLS SECTION -->
   <section id="skills">
     <div class="container">
-      <span class="section-tag" data-aos="fade-up">TECHNICAL STACK</span>
-      <h2 class="section-title" data-aos="fade-up">Skills &amp; <span class="gradient-text">Expertise</span></h2>
+      <span class="section-tag" data-aos="fade-up" data-i18n="tagSkills">TECHNICAL STACK</span>
+      <h2 class="section-title" data-aos="fade-up" id="skillsSectionTitle">Skills &amp; <span class="gradient-text">Expertise</span></h2>
 
       <div class="skills-grid">
         <div class="skill-box" data-aos="fade-up" data-aos-delay="100">
-          <div class="stitle"><i class="fa-solid fa-mobile-screen"></i> Mobile &amp; Web</div>
+          <div class="stitle"><i class="fa-solid fa-mobile-screen"></i> <span data-i18n="skillBox1">Mobile &amp; Web</span></div>
           <div class="stags">
             <span class="stag">Flutter</span>
-            <span class="stag">HTML5</span>
-            <span class="stag">CSS3</span>
+            <span class="stag">HTML5 / CSS3</span>
             <span class="stag">JavaScript</span>
             <span class="stag">Tailwind</span>
             <span class="stag">Three.js / WebGL</span>
@@ -885,7 +956,7 @@
         </div>
 
         <div class="skill-box" data-aos="fade-up" data-aos-delay="200">
-          <div class="stitle"><i class="fa-solid fa-server"></i> Backend &amp; DB</div>
+          <div class="stitle"><i class="fa-solid fa-server"></i> <span data-i18n="skillBox2">Backend &amp; DB</span></div>
           <div class="stags">
             <span class="stag">Laravel</span>
             <span class="stag">PHP</span>
@@ -896,7 +967,7 @@
         </div>
 
         <div class="skill-box" data-aos="fade-up" data-aos-delay="300">
-          <div class="stitle"><i class="fa-solid fa-brain"></i> AI &amp; Languages</div>
+          <div class="stitle"><i class="fa-solid fa-brain"></i> <span data-i18n="skillBox3">AI &amp; Languages</span></div>
           <div class="stags">
             <span class="stag">Python</span>
             <span class="stag">C++</span>
@@ -908,7 +979,7 @@
         </div>
 
         <div class="skill-box" data-aos="fade-up" data-aos-delay="400">
-          <div class="stitle"><i class="fa-solid fa-screwdriver-wrench"></i> Systems &amp; Tools</div>
+          <div class="stitle"><i class="fa-solid fa-screwdriver-wrench"></i> <span data-i18n="skillBox4">Systems &amp; Tools</span></div>
           <div class="stags">
             <span class="stag">Jira</span>
             <span class="stag">GitHub</span>
@@ -921,86 +992,14 @@
     </div>
   </section>
 
-  <!-- CERTIFICATIONS SECTION (OPEN IN MODAL) -->
+  <!-- CERTIFICATIONS SECTION -->
   <section id="certifications">
     <div class="container">
-      <span class="section-tag" data-aos="fade-up">VERIFIED CREDENTIALS</span>
-      <h2 class="section-title" data-aos="fade-up">My <span class="gradient-text">Certifications</span></h2>
+      <span class="section-tag" data-aos="fade-up" data-i18n="tagCerts">VERIFIED CREDENTIALS</span>
+      <h2 class="section-title" data-aos="fade-up" id="certsSectionTitle">My <span class="gradient-text">Certifications</span></h2>
 
-            <div class="certs-grid">
-
-        <!-- Cert 1: ChatGPT Advanced Data Analysis -->
-        <div class="cert-card" data-aos="fade-up" data-aos-delay="100" onclick="openCertModal(0)">
-          <div class="cert-info">
-            <h3>ChatGPT Advanced Data Analysis</h3>
-            <p>Vanderbilt University · Coursera</p>
-          </div>
-          <div class="cert-btn-icon"><i class="fa-solid fa-file-pdf"></i></div>
-        </div>
-
-        <!-- Cert 2: Data Science Essentials with Python -->
-        <div class="cert-card" data-aos="fade-up" data-aos-delay="150" onclick="openCertModal(1)">
-          <div class="cert-info">
-            <h3>Data Science Essentials with Python</h3>
-            <p>Cisco Networking Academy</p>
-          </div>
-          <div class="cert-btn-icon"><i class="fa-solid fa-file-pdf"></i></div>
-        </div>
-
-        <!-- Cert 3: Practical Field Training -->
-        <div class="cert-card" data-aos="fade-up" data-aos-delay="200" onclick="openCertModal(2)">
-          <div class="cert-info">
-            <h3>Professional Practical Training</h3>
-            <p>شهادة التدريب الميداني المعتمدة</p>
-          </div>
-          <div class="cert-btn-icon"><i class="fa-solid fa-file-pdf"></i></div>
-        </div>
-
-        <!-- Cert 4: Cisco CCNA Networking -->
-        <div class="cert-card" data-aos="fade-up" data-aos-delay="250" onclick="openCertModal(3)">
-          <div class="cert-info">
-            <h3>Cisco CCNA Networking</h3>
-            <p>Cisco Networking Academy</p>
-          </div>
-          <div class="cert-btn-icon"><i class="fa-solid fa-file-pdf"></i></div>
-        </div>
-
-        <!-- Cert 5: Intro to Data Science & ML -->
-        <div class="cert-card" data-aos="fade-up" data-aos-delay="300" onclick="openCertModal(4)">
-          <div class="cert-info">
-            <h3>Intro to Data Science &amp; ML</h3>
-            <p>Data Science &amp; ML Academy</p>
-          </div>
-          <div class="cert-btn-icon"><i class="fa-solid fa-file-pdf"></i></div>
-        </div>
-
-        <!-- Cert 6: Introduction to Modern AI -->
-        <div class="cert-card" data-aos="fade-up" data-aos-delay="350" onclick="openCertModal(5)">
-          <div class="cert-info">
-            <h3>Introduction to Modern AI</h3>
-            <p>Artificial Intelligence Certificate</p>
-          </div>
-          <div class="cert-btn-icon"><i class="fa-solid fa-file-pdf"></i></div>
-        </div>
-
-        <!-- Cert 7: Prompt Engineering -->
-        <div class="cert-card" data-aos="fade-up" data-aos-delay="400" onclick="openCertModal(6)">
-          <div class="cert-info">
-            <h3>Prompt Engineering for ChatGPT</h3>
-            <p>Vanderbilt University · Coursera</p>
-          </div>
-          <div class="cert-btn-icon"><i class="fa-solid fa-file-pdf"></i></div>
-        </div>
-
-        <!-- Cert 8: EF SET English Certificate -->
-        <div class="cert-card" data-aos="fade-up" data-aos-delay="450" onclick="openCertModal(7)">
-          <div class="cert-info">
-            <h3>EF SET English Certificate</h3>
-            <p>EF Standard English Test</p>
-          </div>
-          <div class="cert-btn-icon"><i class="fa-solid fa-file-pdf"></i></div>
-        </div>
-
+      <div class="certs-grid" id="certsGrid">
+        <!-- Rendered dynamically via renderCerts() -->
       </div>
     </div>
   </section>
@@ -1009,11 +1008,11 @@
   <section id="connect">
     <div class="container">
       <div class="connect-box" data-aos="zoom-in">
-        <span class="section-tag">LET'S WORK TOGETHER</span>
-        <h2 style="font-size: 2.2rem; font-weight: 800; margin-bottom: 14px;">
+        <span class="section-tag" data-i18n="tagConnect">LET'S WORK TOGETHER</span>
+        <h2 style="font-size: 2.2rem; font-weight: 800; margin-bottom: 14px;" id="connectTitle">
           Get In <span class="gradient-text">Touch</span>
         </h2>
-        <p style="color: var(--text-muted); max-width: 550px; margin: 0 auto 24px;">
+        <p style="color: var(--text-muted); max-width: 550px; margin: 0 auto 24px;" data-i18n="connectDesc">
           Feel free to reach out for software development opportunities or collaboration.
         </p>
 
@@ -1037,7 +1036,7 @@
 
   <footer>
     <div class="container">
-      <p>&copy; 2026 Mariam Alnasseri — Executive Portfolio System</p>
+      <p id="footerText">&copy; 2026 Mariam Alnasseri — Executive Portfolio System</p>
     </div>
   </footer>
 
@@ -1062,160 +1061,287 @@
   <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
 
   <script>
-        /* PROJECT DATA */
+    /* ==========================================================================
+       I18N TRANSLATIONS DICTIONARY
+       ========================================================================== */
+    const i18n = {
+      en: {
+        pageTitle: "Mariam Alnasseri — Executive Portfolio",
+        langBtn: "عربي",
+        navAbout: "About",
+        navProjects: "Projects",
+        navSkills: "Skills",
+        navCerts: "Certifications",
+        navConnect: "Connect",
+        navResume: "Resume",
+        badgeStudent: "UST IT Student · 4th Year",
+        badgeBorn: "Born Oct 6, 2006",
+        heroName: 'Mariam <span class="gradient-text">Alnasseri</span>',
+        heroSubtitle: "Software Developer | Flutter & Laravel | AI Enthusiast",
+        heroBio: "Engineering clean mobile experiences, scalable backend REST APIs, and intelligent artificial intelligence algorithms.",
+        heroScroll: "Explore Work & Projects",
+        tagProjects: "PORTFOLIO",
+        projectsTitle: 'My <span class="gradient-text">Projects</span>',
+        tagSkills: "TECHNICAL STACK",
+        skillsTitle: 'Skills &amp; <span class="gradient-text">Expertise</span>',
+        skillBox1: "Mobile & Web",
+        skillBox2: "Backend & DB",
+        skillBox3: "AI & Languages",
+        skillBox4: "Systems & Tools",
+        tagCerts: "VERIFIED CREDENTIALS",
+        certsTitle: 'My <span class="gradient-text">Certifications</span>',
+        tagConnect: "LET'S WORK TOGETHER",
+        connectTitle: 'Get In <span class="gradient-text">Touch</span>',
+        connectDesc: "Feel free to reach out for software development opportunities or collaboration.",
+        footerText: "© 2026 Mariam Alnasseri — Executive Portfolio System",
+        clickHint: '<i class="fa-solid fa-up-right-from-square"></i> Click to view details & source code',
+        viewCodeBtn: "View GitHub Repository",
+        openCertBtn: "Open PDF Certificate (Google Drive)",
+        verifyCertBtn: "Verify Credential (Coursera)"
+      },
+      ar: {
+        pageTitle: "مريم الناصري — معرض الأعمال والمشاريع البرمجية",
+        langBtn: "English",
+        navAbout: "نبذة عني",
+        navProjects: "المشاريع",
+        navSkills: "المهارات",
+        navCerts: "الشهادات",
+        navConnect: "تواصل معي",
+        navResume: "السيرة الذاتية",
+        badgeStudent: "طالبة تقنية معلومات - جامعة العلوم والتكنولوجيا · سنة رابعة",
+        badgeBorn: "تاريخ الميلاد: 6 أكتوبر 2006",
+        heroName: 'مريم <span class="gradient-text">الناصري</span>',
+        heroSubtitle: "مطورة برمجيات | Flutter & Laravel | مهتمة بعلوم الذكاء الاصطناعي",
+        heroBio: "هندسة تطبيقات الهاتف المحمول الأنيقة، وبرمجة واجهات الـ REST APIs الخلفية القابلة للتوسع، وتطبيق خوارزميات الذكاء الاصطناعي الذكية.",
+        heroScroll: "استكشاف الأعمال والمشاريع",
+        tagProjects: "معرض الأعمال",
+        projectsTitle: 'أبرز <span class="gradient-text">مشاريعي</span>',
+        tagSkills: "المكدس التقني",
+        skillsTitle: 'المهارات و<span class="gradient-text">الخبرات</span>',
+        skillBox1: "تطبيقات الهاتف والويب",
+        skillBox2: "الأنظمة الخلفية وقواعد البيانات",
+        skillBox3: "الذكاء الاصطناعي ولغات البرمجة",
+        skillBox4: "الأنظمة والأدوات التقنية",
+        tagCerts: "المؤهلات المعتمدة",
+        certsTitle: 'شهاداتي <span class="gradient-text">المعتمدة</span>',
+        tagConnect: "فلنعمل سوياً",
+        connectTitle: 'تواصل <span class="gradient-text">معي</span>',
+        connectDesc: "يسعدني تواصلكم لمناقشة فرص العمل المتاحة والتعاون في تطوير المشاريع والحلول البرمجية.",
+        footerText: "جميع الحقوق محفوظة © 2026 مريم الناصري — نظام السيرة الذاتية التنفيذي",
+        clickHint: '<i class="fa-solid fa-up-right-from-square"></i> انقر لعرض التفاصيل والكود المصدري',
+        viewCodeBtn: "عرض المستودع على GitHub",
+        openCertBtn: "عرض وثيقة الشهادة (Google Drive)",
+        verifyCertBtn: "التحقق من الشهادة عبر كورسيرا"
+      }
+    };
+
+    /* ==========================================================================
+       BILINGUAL PROJECTS DATA
+       ========================================================================== */
     const projectsData = [
       {
-        category: "3D WebGL & Three.js",
-        title: "Hamsawi Chrono 3D Showroom",
-        desc: "An interactive 3D WebGL luxury watch showroom engineered with Three.js. Features full 360° orbital controls, procedural metallic and sapphire crystal shaders, real-time working analog hands, lighting environment customization, and camera presets.",
+        category_en: "3D WebGL & Three.js",
+        category_ar: "ثلاثي الأبعاد WebGL & Three.js",
+        title_en: "Hamsawi Chrono 3D Showroom",
+        title_ar: "معرض ساعات حنظلي كرونو 3D",
+        desc_en: "An interactive 3D WebGL luxury watch showroom engineered with Three.js. Features full 360° orbital controls, procedural metallic and sapphire crystal shaders, real-time working analog hands, lighting environment customization, and camera presets.",
+        desc_ar: "صالة عرض ثلاثية الأبعاد تفاعلية فاخرة لساعات اليد تم تطويرها بمحرك Three.js و WebGL. تتيح دوران كامل 360°، خامات واقعية لمعدن الذهب والزجاج الياقوتي، عقارب ساعة حية تعمل بالوقت الفعلي، تخصيص الإضاءة وزوايا الكاميرا السينمائية.",
         tech: ["Three.js", "WebGL", "JavaScript", "3D Shaders", "Interactive UI"],
         url: "https://github.com/mariamalnasseri539-ai/hamsawi-chrono-3d.git",
-        btnIcon: "fa-brands fa-github",
-        btnText: "View GitHub Repository"
+        btnIcon: "fa-brands fa-github"
       },
       {
-        category: "Sensory Front-End Experience",
-        title: "Marib Gourmet Grill & Burger",
-        desc: "A sensory culinary front-end experience crafted with dynamic flame glow aesthetics, hunger-level filtering system, interactive meal customizer modal, floating food micro-animations, and responsive customer ordering flow.",
+        category_en: "Sensory Front-End",
+        category_ar: "واجهة مطاعم تفاعلية",
+        title_en: "Marib Gourmet Grill & Burger",
+        title_ar: "مطعم وشواية مأرب جورميه",
+        desc_en: "A sensory culinary front-end experience crafted with dynamic flame glow aesthetics, hunger-level filtering system, interactive meal customizer modal, floating food micro-animations, and responsive customer ordering flow.",
+        desc_ar: "تجربة فرونت إند حسية مبتكرة لعشاق المأكولات، تتميز بإضاءات اللهب المتوهجة، فلتر ذكي لاختيار درجة الجوع، نافذة منبثقة لتخصيص مكونات الوجبة، انميشن عائم للأطعمة، وتجربة طلب سلسة.",
         tech: ["HTML5", "CSS3 Animations", "JavaScript", "Sensory UI/UX", "Interactive"],
         url: "https://github.com/mariamalnasseri539-ai/Mouth-Watering-Sizzling-Food-Experience.git",
-        btnIcon: "fa-brands fa-github",
-        btnText: "View GitHub Repository"
+        btnIcon: "fa-brands fa-github"
       },
       {
-        category: "Bilingual Web Platform",
-        title: "Crepe King Luxury Lounge",
-        desc: "A dessert lounge front-end platform featuring seamless Arabic/English bilingual toggling (RTL/LTR), Dark/Light theme switcher with smooth transitions, category menu filters, VIP table booking, and automated WhatsApp order dispatching.",
+        category_en: "Bilingual Web App",
+        category_ar: "منصة ويب ثنائية اللغة",
+        title_en: "Crepe King Luxury Lounge",
+        title_ar: "كافيه ولاونج ملك الكريب",
+        desc_en: "A dessert lounge front-end platform featuring seamless Arabic/English bilingual toggling (RTL/LTR), Dark/Light theme switcher with smooth transitions, category menu filters, VIP table booking, and automated WhatsApp order dispatching.",
+        desc_ar: "موقع متكامل لكافيه ولاونج كريب راقٍ يدعم اللغتين العربية والإنجليزية (RTL/LTR)، والوضع الليلي والنهاري، مع فلترة تفاعلية لأصناف المنيو، نظام حجز طاولات VIP، وإرسال الطلبات مباشرة عبر الواتساب.",
         tech: ["HTML5", "CSS3", "JavaScript", "Bilingual RTL/LTR", "Dark/Light Mode"],
         url: "https://github.com/mariamalnasseri539-ai/crepe-king-website.git",
-        btnIcon: "fa-brands fa-github",
-        btnText: "View GitHub Repository"
+        btnIcon: "fa-brands fa-github"
       },
       {
-        category: "Flutter Mobile App",
-        title: "Productive Families App",
-        desc: "An e-commerce platform built with Flutter that empowers local productive families to list their homemade products, manage live customer orders, and track delivery status seamlessly.",
+        category_en: "Flutter Mobile",
+        category_ar: "تطبيق فلاتر للهواتف",
+        title_en: "Productive Families App",
+        title_ar: "منصة الأسر المنتجة",
+        desc_en: "An e-commerce platform built with Flutter that empowers local productive families to list their homemade products, manage live customer orders, and track delivery status seamlessly.",
+        desc_ar: "منصة تجارة إلكترونية متكاملة مبنية بتقنية Flutter لتمكين الأسر المنتجة من عرض منتجاتها المنزلية، إدارة طلبات العملاء الفورية، ومتابعة مسار التوصيل بسهولة.",
         tech: ["Flutter", "Dart", "E-Commerce", "Clean Architecture"],
         url: "https://github.com/mariamalnasseri539-ai/productive-families-app.git",
-        btnIcon: "fa-brands fa-github",
-        btnText: "View GitHub Repository"
+        btnIcon: "fa-brands fa-github"
       },
       {
-        category: "Laravel API",
-        title: "E-Library Backend",
-        desc: "Digital book inventory and library borrowing management RESTful API engine engineered in Laravel. Features JWT user authentication, role-based access control, and transaction auditing.",
+        category_en: "Laravel API",
+        category_ar: "باك إند لارافيل",
+        title_en: "E-Library Backend",
+        title_ar: "نظام المكتبة الرقمية (API)",
+        desc_en: "Digital book inventory and library borrowing management RESTful API engine engineered in Laravel. Features JWT user authentication, role-based access control, and transaction auditing.",
+        desc_ar: "محرك برمجي للواجهات الخلفية RESTful API لإدارة واستعارة الكتب الرقمية، مبني بإطار Laravel مع نظام مصادقة JWT، صلاحيات مستخدمين متعددة، وسجلات تدقيق العمليات.",
         tech: ["Laravel", "PHP", "REST API", "MySQL"],
         url: "https://github.com/mariamalnasseri539-ai/e-library-laravel-backend.git",
-        btnIcon: "fa-brands fa-github",
-        btnText: "View GitHub Repository"
+        btnIcon: "fa-brands fa-github"
       },
       {
-        category: "AI & Algorithms",
-        title: "Vacuum Machine Simulator",
-        desc: "An autonomous agent grid simulator developed in Python. It executes heuristic A* pathfinding and Genetic search algorithms to compute optimal grid coverage and minimal step cost.",
+        category_en: "AI Pathfinding",
+        category_ar: "خوارزميات الذكاء الاصطناعي",
+        title_en: "Vacuum Machine Simulator",
+        title_ar: "محاكي الروبوت الذكي لتنظيف البيئة",
+        desc_en: "An autonomous agent grid simulator developed in Python. It executes heuristic A* pathfinding and Genetic search algorithms to compute optimal grid coverage and minimal step cost.",
+        desc_ar: "محاكي وكيل ذكي مستقل في شبكة بيئية ثنائية الأبعاد بلغة بايثون، يطبق خوارزميات المسار الإرشادي A* والبحث الجيني لحساب التغطية المثلى بأقل تكلفة خطوات.",
         tech: ["Python", "A* Algorithm", "Genetic Search", "AI Heuristics"],
         url: "https://github.com/mariamalnasseri539-ai/vacuum-machine-simulator.git",
-        btnIcon: "fa-brands fa-github",
-        btnText: "View GitHub Repository"
+        btnIcon: "fa-brands fa-github"
       },
       {
-        category: "Machine Learning",
-        title: "AI Salary Predictor",
-        desc: "Machine Learning regression model trained to predict software engineering compensation based on years of experience, primary tech stack, education degree, and geographical location.",
+        category_en: "Machine Learning",
+        category_ar: "تعلم الآلة",
+        title_en: "AI Salary Predictor",
+        title_ar: "نموذج التنبؤ بالرواتب بالذكاء الاصطناعي",
+        desc_en: "Machine Learning regression model trained to predict software engineering compensation based on years of experience, primary tech stack, education degree, and geographical location.",
+        desc_ar: "نموذج تعلم آلي انحداري (Regression) مدرب للتنبؤ بمعدلات رواتب مهندسي البرمجيات وفق سنوات الخبرة، المكدس التقني، المؤهل الدراسي، والموقع الجغرافي.",
         tech: ["Python", "Scikit-Learn", "Regression Model", "Data Analytics"],
         url: "https://github.com/mariamalnasseri539-ai/ai-salary-predictor-ml.git",
-        btnIcon: "fa-brands fa-github",
-        btnText: "View GitHub Repository"
+        btnIcon: "fa-brands fa-github"
       },
       {
-        category: "UML & Systems Analysis",
-        title: "Real-Time Chat Architecture",
-        desc: "Comprehensive systems analysis and structural UML design for a high-concurrency real-time messaging architecture, featuring sequence diagrams, class models, and ERDs.",
+        category_en: "UML & Systems",
+        category_ar: "تحليل وتصميم النظم",
+        title_en: "Real-Time Chat Architecture",
+        title_ar: "معمارية نظام محادثات فورية",
+        desc_en: "Comprehensive systems analysis and structural UML design for a high-concurrency real-time messaging architecture, featuring sequence diagrams, class models, and ERDs.",
+        desc_ar: "تحليل أنظمة معماري شامل وتصميم UML لنظام محادثات فورية عالي التزامن، يتضمن مخططات التتابع (Sequence)، مخططات الأصناف (Class)، ومخططات الكيانات والعلاقات (ERD).",
         tech: ["UML Diagrams", "Systems Architecture", "High Concurrency"],
         url: "https://github.com/mariamalnasseri539-ai/realtime-chat-architecture.git",
-        btnIcon: "fa-brands fa-github",
-        btnText: "View GitHub Repository"
+        btnIcon: "fa-brands fa-github"
       }
     ];
 
-        /* CERTIFICATE DATA */
+    /* ==========================================================================
+       BILINGUAL CERTIFICATIONS DATA
+       ========================================================================== */
     const certsData = [
       {
-        category: "Verified Credential",
-        title: "ChatGPT Advanced Data Analysis",
-        desc: "Official Certificate from Vanderbilt University (via Coursera) validating advanced AI data science, automated analytical workflows, Python scripting with LLMs, and prompt-driven statistical insights.",
+        title_en: "ChatGPT Advanced Data Analysis",
+        title_ar: "تحليل البيانات المتقدم بـ ChatGPT",
+        issuer_en: "Vanderbilt University · Coursera",
+        issuer_ar: "جامعة فاندربيلت · كورسيرا",
+        desc_en: "Official Certificate from Vanderbilt University (via Coursera) validating advanced AI data science, automated analytical workflows, Python scripting with LLMs, and prompt-driven statistical insights.",
+        desc_ar: "شهادة معتمدة من جامعة فاندربيلت عبر منصة كورسيرا تؤكد إتقان تحليل البيانات المتقدم بالذكاء الاصطناعي، وأتمتة مسارات التحليل بلغة بايثون وهندسة الأوامر الذكية.",
         tech: ["Coursera", "Vanderbilt University", "Data Analysis", "Prompt Engineering"],
         url: "https://drive.google.com/file/d/1t58kSIHZUwPg6WcJvHp9Px8OgtOn60-d/view?usp=drivesdk",
         btnIcon: "fa-solid fa-file-pdf",
-        btnText: "Open PDF Certificate (Google Drive)"
+        isCoursera: false
       },
       {
-        category: "Verified Credential",
-        title: "Data Science Essentials with Python",
-        desc: "Official Certificate from Cisco Networking Academy verifying proficiency in Python programming for data science, data manipulation, statistical analysis, and applied analytics.",
+        title_en: "Data Science Essentials with Python",
+        title_ar: "أساسيات علم البيانات ببايثون",
+        issuer_en: "Cisco Networking Academy",
+        issuer_ar: "أكاديمية سيسكو للشبكات",
+        desc_en: "Official Certificate from Cisco Networking Academy verifying proficiency in Python programming for data science, data manipulation, statistical analysis, and applied analytics.",
+        desc_ar: "شهادة رسمية من أكاديمية سيسكو تثبت الكفاءة في البرمجة بلغة بايثون لعلوم البيانات، معالجة وتنظيف البيانات، والتحليل الإحصائي التطبيقي.",
         tech: ["Cisco Academy", "Python", "Data Science", "Analytics"],
         url: "https://drive.google.com/file/d/1sl7QKp5nrgg_lhlgyWZWPppHsxz02l5B/view?usp=drivesdk",
         btnIcon: "fa-solid fa-file-pdf",
-        btnText: "Open PDF Certificate (Google Drive)"
+        isCoursera: false
       },
       {
-        category: "Verified Credential",
-        title: "Professional Practical Training",
-        desc: "Official Certificate validating practical field training (شهادة التدريب الميداني المعتمدة) in software engineering, applied systems development, and industry project collaboration.",
+        title_en: "Professional Practical Training",
+        title_ar: "شهادة التدريب الميداني المعتمدة",
+        issuer_en: "Applied IT & Software Systems Internship",
+        issuer_ar: "التدريب العملي الميداني في هندسة البرمجيات",
+        desc_en: "Official Certificate validating practical field training in software engineering, applied systems development, and industry project collaboration.",
+        desc_ar: "شهادة رسمية معتمدة تثبت إتمام فترة التدريب الميداني العملي في تطوير الأنظمة البرمجية، وتطبيق منهجيات هندسة البرمجيات والمشاريع الواقعية.",
         tech: ["Field Training", "Applied IT", "Software Engineering", "Internship"],
         url: "https://drive.google.com/file/d/1jH6irEOg-lFiVdR5J4U2ns8MNiN98Fqg/view?usp=drivesdk",
         btnIcon: "fa-solid fa-file-pdf",
-        btnText: "Open PDF Certificate (Google Drive)"
+        isCoursera: false
       },
       {
-        category: "Verified Credential",
-        title: "Cisco CCNA Networking",
-        desc: "Official Certificate from Cisco Networking Academy validating core routing, switching, IP addressing, and network security protocols.",
+        title_en: "Cisco CCNA Networking",
+        title_ar: "شبكات سيسكو CCNA المعتمدة",
+        issuer_en: "Cisco Networking Academy",
+        issuer_ar: "أكاديمية سيسكو للشبكات",
+        desc_en: "Official Certificate from Cisco Networking Academy validating core routing, switching, IP addressing, and network security protocols.",
+        desc_ar: "شهادة رسمية من أكاديمية سيسكو تؤكد إتقان أساسيات التوجيه والتبديل (Routing & Switching)، وعنونة بروتوكول الإنترنت، وأمن الشبكات.",
         tech: ["Cisco", "Networking", "Routing & Switching"],
         url: "https://drive.google.com/file/d/1E_hxH1glF2xnxiJUkYRVLqEBb1P5FNmX/view?usp=drive_link",
         btnIcon: "fa-solid fa-file-pdf",
-        btnText: "Open PDF Certificate (Google Drive)"
+        isCoursera: false
       },
       {
-        category: "Verified Credential",
-        title: "Intro to Data Science & ML",
-        desc: "Certificate covering foundational Data Science concepts, exploratory data analysis, visualization, and basic machine learning model building.",
+        title_en: "Intro to Data Science & ML",
+        title_ar: "مدخل إلى علم البيانات وتعلم الآلة",
+        issuer_en: "Data Science & ML Academy",
+        issuer_ar: "أكاديمية علوم البيانات وتعلم الآلة",
+        desc_en: "Certificate covering foundational Data Science concepts, exploratory data analysis, visualization, and basic machine learning model building.",
+        desc_ar: "شهادة تغطي المفاهيم الأساسية لعلم البيانات، التحليل الاستكشافي للبيانات وتصورها، وبناء نماذج تعلم الآلة التأسيسية.",
         tech: ["Data Science", "Machine Learning", "Python"],
         url: "https://drive.google.com/file/d/18-M2RcwjgvgpJV9gS3HXhm941PEXOX0O/view?usp=drive_link",
         btnIcon: "fa-solid fa-file-pdf",
-        btnText: "Open PDF Certificate (Google Drive)"
+        isCoursera: false
       },
       {
-        category: "Verified Credential",
-        title: "Introduction to Modern AI",
-        desc: "Certificate covering core Principles of Artificial Intelligence, Intelligent Search Algorithms, Neural Networks, and AI problem solving.",
+        title_en: "Introduction to Modern AI",
+        title_ar: "مدخل إلى الذكاء الاصطناعي الحديث",
+        issuer_en: "Artificial Intelligence Certificate",
+        issuer_ar: "شهادة الذكاء الاصطناعي",
+        desc_en: "Certificate covering core Principles of Artificial Intelligence, Intelligent Search Algorithms, Neural Networks, and AI problem solving.",
+        desc_ar: "شهادة تغطي المبادئ الجوهرية للذكاء الاصطناعي، خوارزميات البحث الذكية، الشبكات العصبية، وحل المشكلات بالتقنيات الذكية.",
         tech: ["Modern AI", "Neural Networks", "Algorithms"],
         url: "https://drive.google.com/file/d/1tcYbeSSc5zx9nJM6iE7E276C4nrZP88x/view?usp=drive_link",
         btnIcon: "fa-solid fa-file-pdf",
-        btnText: "Open PDF Certificate (Google Drive)"
+        isCoursera: false
       },
       {
-        category: "Verified Credential",
-        title: "Prompt Engineering for ChatGPT",
-        desc: "Official Certificate from Vanderbilt University (via Coursera) validating advanced prompt construction, conversational steering, context framing, and generative AI workflow orchestration.",
+        title_en: "Prompt Engineering for ChatGPT",
+        title_ar: "هندسة الأوامر لـ ChatGPT",
+        issuer_en: "Vanderbilt University · Coursera",
+        issuer_ar: "جامعة فاندربيلت · كورسيرا",
+        desc_en: "Official Certificate from Vanderbilt University (via Coursera) validating advanced prompt construction, conversational steering, context framing, and generative AI workflow orchestration.",
+        desc_ar: "شهادة معتمدة من جامعة فاندربيلت عبر كورسيرا تثبت إتقان صياغة الأوامر الذكية، توجيه النماذج اللغوية، وهندسة سياق المحادثة وتطبيقات الذكاء الاصطناعي التوليدي.",
         tech: ["Coursera", "Vanderbilt University", "Prompt Engineering", "GenAI"],
         url: "https://coursera.org/verify/1XYKGIXR9MQD",
         btnIcon: "fa-solid fa-file-pdf",
-        btnText: "Verify Credential (Coursera)"
+        isCoursera: true
       },
       {
-        category: "Verified Credential",
-        title: "EF SET English Certificate",
-        desc: "Official EF Standard English Test Certificate evaluating advanced English reading, listening, writing, and professional communication skills.",
+        title_en: "EF SET English Certificate",
+        title_ar: "شهادة إتقان اللغة الإنجليزية EF SET",
+        issuer_en: "EF Standard English Test",
+        issuer_ar: "اختبار إي إف القياسي للغة الإنجليزية",
+        desc_en: "Official EF Standard English Test Certificate evaluating advanced English reading, listening, writing, and professional communication skills.",
+        desc_ar: "شهادة رسمية من اختبار EF SET القياسي تثبت مستوى متقدم في القراءة والاستماع ومهارات التواصل المهني باللغة الإنجليزية.",
         tech: ["EF SET", "English Fluency", "Communication"],
         url: "https://drive.google.com/file/d/1tHcZlSF5iRLWFN09tvjFzBBLSTP9L8AH/view?usp=drive_link",
         btnIcon: "fa-solid fa-file-pdf",
-        btnText: "Open PDF Certificate (Google Drive)"
+        isCoursera: false
       }
     ];
 
+    /* ==========================================================================
+       STATE MANAGEMENT: THEME & LANGUAGE
+       ========================================================================== */
+    let currentLang = localStorage.getItem('portfolio_lang') || 'en';
+    let currentTheme = localStorage.getItem('portfolio_theme') || 'dark';
+
     document.addEventListener('DOMContentLoaded', () => {
-      AOS.init({ duration: 700, once: false, offset: 60 });
+      applyTheme(currentTheme);
+      applyLanguage(currentLang);
+
+      AOS.init({ duration: 650, once: true, offset: 50 });
       initParticleCanvas();
       
       const navbar = document.getElementById('navbar');
@@ -1225,13 +1351,149 @@
       });
     });
 
+    /* THEME TOGGLER */
+    function toggleTheme() {
+      currentTheme = (currentTheme === 'dark') ? 'light' : 'dark';
+      localStorage.setItem('portfolio_theme', currentTheme);
+      applyTheme(currentTheme);
+    }
+
+    function applyTheme(theme) {
+      document.documentElement.setAttribute('data-theme', theme);
+      const icon = document.getElementById('themeIcon');
+      if (theme === 'light') {
+        icon.className = 'fa-solid fa-moon';
+      } else {
+        icon.className = 'fa-solid fa-sun';
+      }
+    }
+
+    /* LANGUAGE TOGGLER */
+    function toggleLanguage() {
+      currentLang = (currentLang === 'en') ? 'ar' : 'en';
+      localStorage.setItem('portfolio_lang', currentLang);
+      applyLanguage(currentLang);
+    }
+
+    function applyLanguage(lang) {
+      const data = i18n[lang];
+      document.documentElement.setAttribute('lang', lang);
+      document.documentElement.setAttribute('dir', lang === 'ar' ? 'rtl' : 'ltr');
+      document.title = data.pageTitle;
+
+      // Update button text
+      document.getElementById('langBtnText').innerText = data.langBtn;
+
+      // Update static i18n elements
+      document.querySelectorAll('[data-i18n]').forEach(el => {
+        const key = el.getAttribute('data-i18n');
+        if (data[key]) {
+          el.innerHTML = data[key];
+        }
+      });
+
+      // Update section titles with gradients
+      document.getElementById('heroName').innerHTML = data.heroName;
+      document.getElementById('projectsSectionTitle').innerHTML = data.projectsTitle;
+      document.getElementById('skillsSectionTitle').innerHTML = data.skillsTitle;
+      document.getElementById('certsSectionTitle').innerHTML = data.certsTitle;
+      document.getElementById('connectTitle').innerHTML = data.connectTitle;
+      document.getElementById('footerText').innerHTML = data.footerText;
+
+      // Re-render Dynamic Cards
+      renderProjects(lang);
+      renderCerts(lang);
+    }
+
+    /* RENDER PROJECTS */
+    function renderProjects(lang) {
+      const grid = document.getElementById('projectsGrid');
+      grid.innerHTML = '';
+      const isAr = (lang === 'ar');
+      const hint = i18n[lang].clickHint;
+
+      projectsData.forEach((p, idx) => {
+        const cat = isAr ? p.category_ar : p.category_en;
+        const title = isAr ? p.title_ar : p.title_en;
+        const delay = 100 + (idx % 4) * 60;
+
+        const card = document.createElement('div');
+        card.className = 'project-card';
+        card.setAttribute('data-aos', 'fade-up');
+        card.setAttribute('data-aos-delay', delay);
+        card.onclick = () => openProjectModal(idx);
+
+        card.innerHTML = `
+          <div class="pcard-top">
+            <span class="pcard-category">${cat}</span>
+            <div class="pcard-arrow"><i class="fa-solid fa-arrow-right"></i></div>
+          </div>
+          <h3 class="pcard-main-title">${title}</h3>
+          <div class="pcard-click-hint">
+            ${hint}
+          </div>
+        `;
+        grid.appendChild(card);
+      });
+    }
+
+    /* RENDER CERTS */
+    function renderCerts(lang) {
+      const grid = document.getElementById('certsGrid');
+      grid.innerHTML = '';
+      const isAr = (lang === 'ar');
+
+      certsData.forEach((c, idx) => {
+        const title = isAr ? c.title_ar : c.title_en;
+        const issuer = isAr ? c.issuer_ar : c.issuer_en;
+        const delay = 100 + (idx % 4) * 60;
+
+        const card = document.createElement('div');
+        card.className = 'cert-card';
+        card.setAttribute('data-aos', 'fade-up');
+        card.setAttribute('data-aos-delay', delay);
+        card.onclick = () => openCertModal(idx);
+
+        card.innerHTML = `
+          <div class="cert-info">
+            <h3>${title}</h3>
+            <p>${issuer}</p>
+          </div>
+          <div class="cert-btn-icon"><i class="fa-solid fa-file-pdf"></i></div>
+        `;
+        grid.appendChild(card);
+      });
+    }
+
+    /* MODAL HANDLERS */
     function openProjectModal(index) {
-      const data = projectsData[index];
+      const p = projectsData[index];
+      const isAr = (currentLang === 'ar');
+      const data = {
+        category: isAr ? p.category_ar : p.category_en,
+        title: isAr ? p.title_ar : p.title_en,
+        desc: isAr ? p.desc_ar : p.desc_en,
+        tech: p.tech,
+        url: p.url,
+        btnIcon: p.btnIcon,
+        btnText: i18n[currentLang].viewCodeBtn
+      };
       populateAndShowModal(data);
     }
 
     function openCertModal(index) {
-      const data = certsData[index];
+      const c = certsData[index];
+      const isAr = (currentLang === 'ar');
+      const btnText = c.isCoursera ? i18n[currentLang].verifyCertBtn : i18n[currentLang].openCertBtn;
+      const data = {
+        category: isAr ? "مؤهل مهني معتمد" : "VERIFIED CREDENTIAL",
+        title: isAr ? c.title_ar : c.title_en,
+        desc: isAr ? c.desc_ar : c.desc_en,
+        tech: c.tech,
+        url: c.url,
+        btnIcon: c.btnIcon,
+        btnText: btnText
+      };
       populateAndShowModal(data);
     }
 
@@ -1264,7 +1526,7 @@
       if (e.target.id === 'modalOverlay') closeModal();
     }
 
-    /* Subtle Interactive Background Particles */
+    /* Ambient Interactive Background Particles */
     function initParticleCanvas() {
       const canvas = document.getElementById('particle-canvas');
       const ctx = canvas.getContext('2d');
@@ -1277,20 +1539,23 @@
       });
 
       const particles = [];
-      const count = Math.floor(w / 22);
+      const count = Math.min(Math.floor(w / 24), 45);
 
       for (let i = 0; i < count; i++) {
         particles.push({
           x: Math.random() * w,
           y: Math.random() * h,
-          vx: (Math.random() - 0.5) * 0.6,
-          vy: (Math.random() - 0.5) * 0.6,
+          vx: (Math.random() - 0.5) * 0.5,
+          vy: (Math.random() - 0.5) * 0.5,
           radius: Math.random() * 1.8 + 0.8,
         });
       }
 
       function draw() {
         ctx.clearRect(0, 0, w, h);
+        const color = (currentTheme === 'light') ? 'rgba(230, 0, 111, 0.5)' : 'rgba(255, 0, 127, 0.7)';
+        const lineColor = (currentTheme === 'light') ? 'rgba(230, 0, 111,' : 'rgba(255, 0, 127,';
+
         for (let i = 0; i < particles.length; i++) {
           let p = particles[i];
           p.x += p.vx;
@@ -1300,25 +1565,24 @@
 
           ctx.beginPath();
           ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
-          ctx.fillStyle = '#FF007F';
-          ctx.shadowBlur = 8;
-          ctx.shadowColor = '#FF007F';
+          ctx.fillStyle = color;
+          ctx.shadowBlur = (currentTheme === 'light') ? 3 : 8;
+          ctx.shadowColor = (currentTheme === 'light') ? '#E6006F' : '#FF007F';
           ctx.fill();
 
           for (let j = i + 1; j < particles.length; j++) {
             let p2 = particles[j];
             let dist = Math.hypot(p.x - p2.x, p.y - p2.y);
-            if (dist < 120) {
+            if (dist < 115) {
               ctx.beginPath();
               ctx.moveTo(p.x, p.y);
               ctx.lineTo(p2.x, p2.y);
-              ctx.strokeStyle = `rgba(255, 0, 127, ${1 - dist / 120 * 0.8})`;
+              ctx.strokeStyle = `${lineColor} ${1 - dist / 115 * 0.85})`;
               ctx.lineWidth = 0.5;
               ctx.stroke();
             }
           }
         }
-        ctx.shadowBlur = 0;
         requestAnimationFrame(draw);
       }
       draw();
